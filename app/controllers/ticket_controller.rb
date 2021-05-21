@@ -2,7 +2,7 @@ class TicketController < ApplicationController
   before_action :set_ticket, only: [:show]
 
   def index
-  @ticket = Ticket.all
+  @ticket = Ticket.all.order(paid: :desc)
 
 	render json: @ticket
   end
@@ -10,31 +10,22 @@ class TicketController < ApplicationController
     render json: @ticket
   end
   def create
-    @ticket = Ticket.new(ticket_params)
 
-    if @ticket.save
-      render json: @ticket, status: :created, location: @ticket
-    else
-      render json: @ticket.errors, status: :unprocessable_entity
-    end
+      render json: Ticket.new(ticket_params)
   end
+
   def buy
     @ticket = Ticket.new(ticket_params)
-    @ticket.paid = true
-    if @ticket.save
-      render json: @ticket
-    end
+    @ticket.save(paid: true)
+    render json: @ticket
   end
     
     def reservation
-        @ticket = Ticket.new(ticket_params)
-        @ticket.paid = false
-        
-    
-        if @ticket.save
-          render json: @ticket, status: :created, location: @ticket
-        end
-      end
+      @ticket = Ticket.new(ticket_params)
+      @ticket.save(paid: false)
+
+      render json: @ticket
+    end
 
 private
 

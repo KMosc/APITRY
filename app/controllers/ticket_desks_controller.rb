@@ -3,7 +3,7 @@ class TicketDesksController < ApplicationController
 
   # GET /ticket_desks
   def index
-    @ticket_desks = TicketDesk.all
+    @ticket_desks = TicketDesk.all.order(automated: :desc)
 
     render json: @ticket_desks
   end

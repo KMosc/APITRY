@@ -3,7 +3,7 @@ class CinemaHallsController < ApplicationController
 
   # GET /cinema_halls
   def index
-    @cinema_halls = CinemaHall.all
+    @cinema_halls = CinemaHall.all.sort_by(&:volume)
 
     render json: @cinema_halls
   end
@@ -15,13 +15,7 @@ class CinemaHallsController < ApplicationController
 
   # POST /cinema_halls
   def create
-    @cinema_hall = CinemaHall.new(cinema_hall_params)
-
-    if @cinema_hall.save
-      render json: @cinema_hall, status: :created, location: @cinema_hall
-    else
-      render json: @cinema_hall.errors, status: :unprocessable_entity
-    end
+      render json: CinemaHall.new(cinema_hall_params)
   end
 
   # PATCH/PUT /cinema_halls/1
