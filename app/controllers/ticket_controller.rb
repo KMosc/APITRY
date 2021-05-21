@@ -9,14 +9,20 @@ class TicketController < ApplicationController
   def show
     render json: @ticket
   end
-  def buy
+  def create
     @ticket = Ticket.new(ticket_params)
-    @ticket.paid = false
 
     if @ticket.save
       render json: @ticket, status: :created, location: @ticket
     else
       render json: @ticket.errors, status: :unprocessable_entity
+    end
+  end
+  def buy
+    @ticket = Ticket.new(ticket_params)
+    @ticket.paid = true
+    if @ticket.save
+      render json: @ticket
     end
   end
     
@@ -27,8 +33,6 @@ class TicketController < ApplicationController
     
         if @ticket.save
           render json: @ticket, status: :created, location: @ticket
-        else
-          render json: @ticket.errors, status: :unprocessable_entity
         end
       end
 
@@ -38,6 +42,6 @@ private
       @ticket = Ticket.find(params[:id])
     end
     def ticket_params
-      params.require(:ticket).permit(:ticket_desk_id, :cinema_hall_id, :paid)
+      params.require(:ticket).permit(:paid, :cinema_hall_id, :ticket_desk_id)
     end
 end
