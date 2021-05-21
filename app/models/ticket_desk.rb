@@ -1,11 +1,10 @@
 class TicketDesk < ApplicationRecord
-    has_many :tickets, :class_name => 'TicketDesk', :foreign_key => 'cinema_hall_id'
-    def initialize(id,name, automated)
-        @id = id
-        @name = name
-        @automated = automated
-      end
-    
+    has_and_belongs_to_many :cinema_halls
+    validate :id, :if => :exist?
+
+    def exist?
+        @ticket.exists?(id: ticket_desk_id)
+    end
     def ticket_desk_id
         self.id
     end

@@ -1,13 +1,14 @@
 class CinemaHall < ApplicationRecord
-has_many :tickets, :class_name => 'CinemaHall', :foreign_key => 'ticket_id'
+has_and_belongs_to_many :tickets
+validate :id, :if => :exist?
 
-def initialize(id,volume)
-    @id = id
-    @volume = volume
-  end
+
 
 def cinema_hall_id
     self.id
+end
+def exist?
+    @cinema_hall.exists?(id: cinema_hall_id)
 end
 def cinema_volume
     self.volume

@@ -3,7 +3,7 @@ class CinemaHallsController < ApplicationController
 
   # GET /cinema_halls
   def index
-    @cinema_halls = CinemaHall.all.sort_by(&:volume)
+    @cinema_halls = CinemaHall.all.order(volume: :desc)
 
     render json: @cinema_halls
   end
@@ -40,6 +40,6 @@ class CinemaHallsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cinema_hall_params
-      params.require(:cinema_hall).permit(:volume)
+      params.permit(:id, :volume)
     end
 end

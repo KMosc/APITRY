@@ -40,6 +40,6 @@ end
 
     # Only allow a list of trusted parameters through.
     def ticket_desk_params
-      params.require(:ticket_desk).permit(:name, :automated)
+      params.permit(:id, :name, :automated)
     end
 end
