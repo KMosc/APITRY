@@ -3,7 +3,6 @@ class TicketController < ApplicationController
 
   def index
   @ticket = Ticket.all.order(paid: :desc)
-
 	render json: @ticket
   end
   def show
