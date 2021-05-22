@@ -7,7 +7,6 @@ class TicketController < ApplicationController
 	render json: @tickets
   end
   def show
-    render json: @ticket
   end
   def create
     @ticket = Ticket.create(ticket_params)

@@ -15,7 +15,6 @@ class CinemaHallsController < ApplicationController
 
   # GET /cinema_halls/1
   def show
-    render json: @cinema_hall
   end
 
   # POST /cinema_halls

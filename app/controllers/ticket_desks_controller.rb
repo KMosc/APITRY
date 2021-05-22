@@ -8,7 +8,6 @@ class TicketDesksController < ApplicationController
     render json: @ticket_desks
   end
   def show
-    render json: @cinema_hall
   end
   
   # POST /ticket_desks
