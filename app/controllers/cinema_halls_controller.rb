@@ -3,9 +3,14 @@ class CinemaHallsController < ApplicationController
 
   # GET /cinema_halls
   def index
-    @cinema_halls = CinemaHall.all.order(volume: :desc)
+    if TicketDesk.exists?(id: params[:ticket_desk_id])
+      @cinema_halls = CinemaHall.all.order(volume: :desc)
 
-    render json: @cinema_halls
+      render json: @cinema_halls
+    else
+      render :json => []
+
+    end
   end
 
   # GET /cinema_halls/1

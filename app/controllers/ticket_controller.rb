@@ -21,6 +21,10 @@ class TicketController < ApplicationController
 
   def buy
     puts ticket_params
+#Cant buy if there is not such ticketdesk or cinemahall
+#    if TicketDesk.exists?(id: params[:ticket_desk_id])
+#if CinemaHall.exists?(id: params[:cinema_hall_id])
+
 
     @ticket = Ticket.create(ticket_params)
 

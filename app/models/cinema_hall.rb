@@ -1,5 +1,6 @@
 class CinemaHall < ApplicationRecord
 has_and_belongs_to_many :tickets
+
 validate :id, :if => :exist?
 
 
