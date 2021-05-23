@@ -18,14 +18,14 @@ class TicketController < ApplicationController
 
   def buy
     #Cant buy if there is not such ticketdesk or cinemahall
-    if Ticket.count != CinemaHall.where([id: params[:cinema_hall_id]]).volume
-      if !TicketDesk.exists?(id: params[:ticket_desk_id]) && !CinemaHall.exists?(id: params[:cinema_hall_id])
-        if Ticket.exists?(paid: false)
-          Ticket.where(:paid => false).update_all(paid: true)
-        else
-          @ticket=Ticket.create(ticket_params)
-          @ticket.before_save
-        end
+    #Calling multiple methods using .send and []
+    if Ticket.send([:ticket_available?,:route_availabe?])
+      if Ticket.where(:paid => false).update_all(paid: true)
+        render :json => "You've paid for ticket that You had booked."
+      else
+        @ticket=Ticket.create(ticket_params)
+        @ticket.before_save
+        render :json => "Ticket has been bought."
       end
     else
       render :json => "Couldnt buy the ticket, Room is full of people."
@@ -33,16 +33,14 @@ class TicketController < ApplicationController
   end
 
   def booked
-    if Ticket.count != CinemaHall.where([id: params[:cinema_hall_id]]).volume
-
-      if !TicketDesk.exists?(id: params[:ticket_desk_id]) && !CinemaHall.exists?(id: params[:cinema_hall_id])
+    if Ticket.send([:ticket_available?,:route_availabe?])
         ticket_params[:paid] = false
         @ticket = Ticket.create(ticket_params)
         @ticket.save!
-        render json: @ticket
-      end
-    render :json => "Couldnt bookin the ticket, Room is full of people."
+        render :json => "Ticket has been booked in."
+        
     end
+    render :json => "Couldnt bookin the ticket, Room is full of people."
   end
 
 
