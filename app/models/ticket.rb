@@ -11,13 +11,5 @@ class Ticket < ApplicationRecord
   end
 
 
-
-  def ticket_available?
-      self.count != CinemaHall.where([id: params[:cinema_hall_id]]).volume
-  end
-  def route_availabe?
-    !TicketDesk.exists?(id: params[:ticket_desk_id]) && !CinemaHall.exists?(id: params[:cinema_hall_id])
-  end
-
   
 end
