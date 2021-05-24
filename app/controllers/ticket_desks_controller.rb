@@ -7,6 +7,7 @@ class TicketDesksController < ApplicationController
 
     render json: @ticket_desks
   end
+
   def show
   end
   
@@ -20,16 +21,6 @@ class TicketDesksController < ApplicationController
       render json: @ticket_desk.errors, status: :unprocessable_entity
     end
   end
-
-def buy
-@result = Ticket.new(paid: true)
-@result.save
-end
-
-def reservation
-@result = Ticket.new(paid: false)
-@result.save
-end
 
   private
     # Use callbacks to share common setup or constraints between actions.
