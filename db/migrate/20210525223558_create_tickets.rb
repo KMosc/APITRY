@@ -4,6 +4,7 @@ class CreateTickets < ActiveRecord::Migration[6.1]
       t.references :ticket_desk, null: false, foreign_key: true
       t.references :cinema_hall, null: false, foreign_key: true
       t.boolean :paid
+      t.boolean :used
       t.references :client, null: false, foreign_key: true
 
       t.timestamps
