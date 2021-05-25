@@ -4,6 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.1'
 
 gem 'rspec', '~> 3.0'
+gem "sentry-ruby"
+gem "sentry-rails"
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'

@@ -9,9 +9,8 @@ Rails.application.routes.draw do
 end
 
 scope 'ticket' do
-  post 'ticket', to: 'ticket#create', as: :buy
-
-  post 'ticket', to: 'ticket#booked'
+  post "ticket", to: 'ticket#create', as: 'ticket_create'
+  post "ticket", to: 'ticket#bookin', as: 'ticket_bookin'
 
 end
 
