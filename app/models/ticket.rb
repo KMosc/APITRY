@@ -5,6 +5,5 @@ class Ticket < ApplicationRecord
   validates :ticket_desk_id, numericality: { only_integer: true }
   validates :cinema_hall_id, numericality: { only_integer: true }
   validates :movie_id, numericality: { only_integer: true }
-  validates :paid, presence: true, inclusion: { in: [true, false] }
-  end
+end
   

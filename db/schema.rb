@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_26_133119) do
+ActiveRecord::Schema.define(version: 2021_05_26_174431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2021_05_26_133119) do
 
   create_table "tickets", force: :cascade do |t|
     t.boolean "paid"
+    t.string "password"
     t.bigint "ticket_desk_id", null: false
     t.bigint "cinema_hall_id", null: false
     t.bigint "movie_id", null: false
