@@ -19,7 +19,7 @@ class CinemaHallsController < ApplicationController
 
   # POST /cinema_halls
   def create
-      render json: CinemaHall.new(cinema_hall_params)
+      render json: CinemaHall.create(cinema_hall_params)
   end
 
   # PATCH/PUT /cinema_halls/1

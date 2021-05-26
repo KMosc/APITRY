@@ -14,7 +14,7 @@ class MoviesController < ApplicationController
 
   # POST /cinema_halls
   def create
-      render json: Movie.new(movie_params)
+      render json: Movie.create(movie_params)
   end
 
   # PATCH/PUT /cinema_halls/1

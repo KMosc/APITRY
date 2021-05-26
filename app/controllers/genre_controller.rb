@@ -11,7 +11,7 @@ end
 
 # POST /cinema_halls
 def create
-    render json: Genre.new(genre_params)
+    render json: Genre.create(genre_params)
 end
 
 # PATCH/PUT /cinema_halls/1

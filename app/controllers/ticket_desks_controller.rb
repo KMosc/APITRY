@@ -11,7 +11,7 @@ class TicketDesksController < ApplicationController
 
   # POST /ticket_desks
   def create
-    @ticket_desk = TicketDesk.new(ticket_desk_params)
+    @ticket_desk = TicketDesk.create(ticket_desk_params)
 
     if @ticket_desk.save
       render json: @ticket_desk, status: :created, location: @ticket_desk
