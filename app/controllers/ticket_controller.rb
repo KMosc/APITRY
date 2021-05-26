@@ -54,13 +54,13 @@ private
     end
 
     def confirm_reservation
-      Ticket.where(:paid => false).update_all(paid: true)
+      Ticket.where(paid: false).update_all(paid: true)
       render :json => "You've paid for ticket that You had booked."
     end
 
     def ticket_available?
       @cinema_hall = CinemaHall.find(params[:cinema_hall_id])
-      Ticket.where(cinema_hall_id: params[:cinema_hall_id], paid: true).count(:all) < @cinema_hall.read_attribute_before_type_cast(:volume) 
+      Ticket.where(params[:movies_id]).count(:all) < @cinema_hall.read_attribute_before_type_cast(:volume) 
     end
 
     def route_availabe?
@@ -72,7 +72,7 @@ private
     end
 
     def ticket_params
-      params.permit(:id, :ticket_desk_id, :cinema_hall_id, :paid)
+      params.permit(:id, :ticket_desk_id, :cinema_hall_id, :paid, :used, :movie_id)
     end
     
 end
