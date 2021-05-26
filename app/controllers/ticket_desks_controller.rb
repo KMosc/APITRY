@@ -12,7 +12,7 @@ class TicketDesksController < ApplicationController
   end
 
   # POST /ticket_desks
-  def buy
+  def create
     @ticket_desk = TicketDesk.new(ticket_desk_params)
 
     if @ticket_desk.save
