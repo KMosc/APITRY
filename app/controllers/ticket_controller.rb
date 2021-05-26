@@ -36,8 +36,6 @@ class TicketController < ApplicationController
   def bookin
     make_reservation()
   end
- 
-
 
 private
 
@@ -73,6 +71,5 @@ private
 
     def ticket_params
       params.permit(:id, :ticket_desk_id, :cinema_hall_id, :paid, :used, :movie_id)
-    end
-    
+    end    
 end

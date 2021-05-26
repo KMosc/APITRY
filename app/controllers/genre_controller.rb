@@ -1,6 +1,6 @@
 class GenreController < ApplicationController
   def index
-    @genre = Genre.all.order(id: :desc)
+    @genre = Genre.order(id: :desc)
 
     render json: @genre
 end

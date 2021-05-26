@@ -1,10 +1,8 @@
 class TicketDesksController < ApplicationController
   before_action :set_ticket_desk, only: [:show]
-
   # GET /ticket_desks
   def index
-    @ticket_desks = TicketDesk.all.order(automated: :desc)
-
+    @ticket_desks = TicketDesk.order(automated: :desc)
     render json: @ticket_desks
   end
 
@@ -21,14 +19,10 @@ class TicketDesksController < ApplicationController
       render json: @ticket_desk.errors, status: :unprocessable_entity
     end
   end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_ticket_desk
       @ticket_desk = TicketDesk.find(params[:id])
     end
-
-    # Only allow a list of trusted parameters through.
     def ticket_desk_params
       params.permit(:id, :name, :automated)
     end
