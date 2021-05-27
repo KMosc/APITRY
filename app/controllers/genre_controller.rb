@@ -1,8 +1,13 @@
 class GenreController < ApplicationController
   def index
-    @genre = Genre.order(id: :desc)
 
-    render json: @genre
+    render json: Genre.order(id: :desc).map do |genre| {
+      id: genre.id,
+      title: genre.title,
+      description: genre.description
+
+    }
+  end
 end
 
 # GET /cinema_halls/1

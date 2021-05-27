@@ -3,7 +3,7 @@ class TicketController < ApplicationController
 
   def index     
     if !params[:password].blank?
-      @tickets = Ticket.where(password: params[:password]).where(ticket_desk_id: params[:ticket_desk_id]).where(cinema_hall_id: params[:cinema_hall_id])    
+      @tickets = Ticket.where(password: params[:password], ticket_desk_id: params[:ticket_desk_id], cinema_hall_id: params[:cinema_hall_id])    
       render json: @tickets, except: [:password, :created_at, :updated_at, :ticket_desk_id]
     else
       render json:[]

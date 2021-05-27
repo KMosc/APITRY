@@ -2,8 +2,14 @@ class TicketDesksController < ApplicationController
   before_action :set_ticket_desk, only: [:show]
   # GET /ticket_desks
   def index
-    @ticket_desks = TicketDesk.order(automated: :desc)
-    render json: @ticket_desks
+    @ticket=TicketDesk.order(automated: :desc).map do |shop| {
+      id: shop.id,
+      name: shop.name,
+      automated: shop.automated
+      }
+    end
+    render json: @ticket, except: [:created_at, :updated_at]
+
   end
 
   def show

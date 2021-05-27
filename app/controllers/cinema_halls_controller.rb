@@ -4,9 +4,13 @@ class CinemaHallsController < ApplicationController
   # GET /cinema_halls
   def index
     if TicketDesk.exists?(id: params[:ticket_desk_id])
-      @cinema_halls = CinemaHall.order(volume: :desc)
 
-      render json: @cinema_halls
+      render json: CinemaHall.order(volume: :desc).map do |cinema_hall| {
+        id: cinema_hall.id,
+        volume: cinema_hall.volume
+
+      }
+    end
     else
       render :json => []
 

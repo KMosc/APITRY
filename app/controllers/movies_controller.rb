@@ -3,9 +3,17 @@ class MoviesController < ApplicationController
 
   # GET /cinema_halls
   def index
-      @movie = Movie.order(title: :desc)
 
-      render json: @movie
+      render json: Movie.where(cinema_hall_id: params[:cinema_hall_id]).order(title: :desc).map do |movie| {
+        id: movie.id, 
+        title: movie.title, 
+        description: movie.description, 
+        age_restriction: movie.age_restriction, 
+        starts_at: movie.starts_at, 
+        ends_at: movie.ends_at,
+        genre_id: movie.genre_id
+      }
+    end
   end
 
   # GET /cinema_halls/1
