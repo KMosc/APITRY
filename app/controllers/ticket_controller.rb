@@ -3,10 +3,10 @@ class TicketController < ApplicationController
 
   def index     
     if !params[:password].blank?
-      @tickets = Ticket.where(password: params[:password], ticket_desk_id: params[:ticket_desk_id], cinema_hall_id: params[:cinema_hall_id])    
+      @tickets = Ticket.where(movie_id: params[:movie_id], password: params[:password], ticket_desk_id: params[:ticket_desk_id], cinema_hall_id: params[:cinema_hall_id])    
       render json: @tickets, except: [:password, :created_at, :updated_at, :ticket_desk_id]
     else
-      render json:[]
+      render json:@tickets
     end
   end
 
@@ -20,26 +20,31 @@ class TicketController < ApplicationController
 
   def create
     #Cant buy if there is not such ticketdesk or cinemahall
-    #Calling multiple methods using .send and []
-    if !params[:password].blank?
-      if ticket_available?
-        if Ticket.exists?(:paid => false)  
-          confirm_reservation
+    #Calling multiple methods using .send and []      
+    if !params[:password].blank? && params[:seat].in?(take_seat)
+      if (!Ticket.exists?(:cinema_hall_id => params[:cinema_hall_id], seat: params[:seat], movie_id: params[:movie_id]))
+        #&& Ticket.where(cinema_hall_id: params[:cinema_hall_id], seat: params[:seat], movie_id: params[:movie_id])
+        if ticket_available?
+          if Ticket.exists?(:paid => false)  
+            confirm_reservation
+          else
+            attributes = ticket_params.clone
+            attributes[:paid] = true
+            @ticket=Ticket.new(attributes)
+            render :json => ["log": "ticket.bought"]
+            @ticket.save!
+          end
         else
-          attributes = ticket_params.clone
-          attributes[:paid] = false
-          @ticket=Ticket.new(attributes)
-          render :json => ["log": "ticket.bought"]
-          @ticket.save!
-
+          render :json => ["log": "room.full.of.people"]
         end
       else
-        render :json => ["log": "room.full.of.people"]
+        render :json => ["log": "seat.error"]
       end
+
     else
       render :json => ["log": "password.blank?"]
     end
-
+      
   end
 
   def bookin
@@ -66,9 +71,15 @@ private
     end
 
     def ticket_available?
+
       @cinema_hall = CinemaHall.find(params[:cinema_hall_id])
-      Ticket.where(params[:movies_id]).count(:all) < @cinema_hall.read_attribute_before_type_cast(:volume) 
+      (Ticket.where(params[:movies_id]).count(:all) < @cinema_hall.read_attribute_before_type_cast(:volume) ) 
+
     end
+
+
+
+      
 
     def route_availabe?
       !TicketDesk.exists?(id: params[:ticket_desk_id]) && !CinemaHall.exists?(id: params[:cinema_hall_id])
@@ -79,6 +90,17 @@ private
     end
 
     def ticket_params
-      params.permit(:id, :password, :ticket_desk_id, :cinema_hall_id, :paid, :movie_id)
+      params.permit(:id, :paid, :password, :seat, :ticket_desk_id, :cinema_hall_id, :movie_id)
     end    
+    
+    def take_seat
+      big_alphabet = ("A".."Z").to_a
+      volume = CinemaHall.find(params[:cinema_hall_id]).read_attribute('volume')
+      seats=1.step(volume,1).to_a
+      for i in 0..volume-1
+            seats[i] = "#{i/10+1}#{big_alphabet[i%10]}"
+      end
+      return seats
+    end
+
 end
