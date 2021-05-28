@@ -6,7 +6,7 @@ class TicketController < ApplicationController
       @tickets = Ticket.where(movie_id: params[:movie_id], password: params[:password], ticket_desk_id: params[:ticket_desk_id], cinema_hall_id: params[:cinema_hall_id])    
       render json: @tickets, except: [:password, :created_at, :updated_at, :ticket_desk_id]
     else
-      render json:@tickets
+      render json: seats_not_taken
     end
   end
 
@@ -75,6 +75,16 @@ private
       @cinema_hall = CinemaHall.find(params[:cinema_hall_id])
       (Ticket.where(params[:movies_id]).count(:all) < @cinema_hall.read_attribute_before_type_cast(:volume) ) 
 
+    end
+
+    def seats_not_taken
+      seats_taken=[]
+      i = 0
+      Ticket.all.each do |ticket|
+        seats_taken[i]=ticket[:seat]
+        i=i+1
+      end
+      return {"empty_seats":(take_seat-seats_taken)}
     end
 
 
