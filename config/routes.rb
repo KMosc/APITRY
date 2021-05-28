@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
+
+  
   root :to => 'ticket_desks#index'
 
   resources :ticket_desks do
+
 	  resources :cinema_halls do
-  		resources :ticket do
+      resources :movies do
+        resources :genre
+        resources :ticket
       end
-	end
+	  end
 end
 
 scope 'ticket' do

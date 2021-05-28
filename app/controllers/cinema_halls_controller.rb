@@ -4,9 +4,13 @@ class CinemaHallsController < ApplicationController
   # GET /cinema_halls
   def index
     if TicketDesk.exists?(id: params[:ticket_desk_id])
-      @cinema_halls = CinemaHall.all.order(volume: :desc)
 
-      render json: @cinema_halls
+      render json: CinemaHall.order(volume: :desc).map do |cinema_hall| {
+        id: cinema_hall.id,
+        volume: cinema_hall.volume
+
+      }
+    end
     else
       render :json => []
 
@@ -19,7 +23,7 @@ class CinemaHallsController < ApplicationController
 
   # POST /cinema_halls
   def create
-      render json: CinemaHall.new(cinema_hall_params)
+      render json: CinemaHall.create(cinema_hall_params)
   end
 
   # PATCH/PUT /cinema_halls/1
