@@ -1,5 +1,5 @@
 module Repositories
-    class CinemaHallRepository
+    class CinemaHallRepository  < ::Repositories::Base
         attr_reader :adapter
 
         def initialize(adapter: Models::CinemaHall)

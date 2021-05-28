@@ -1,5 +1,5 @@
 module Repositories
-    class TicketDeskRepository
+    class TicketDeskRepository < ::Repositories::Base
         attr_reader :adapter
 
         def initialize(adapter: Models::TicketDesk)

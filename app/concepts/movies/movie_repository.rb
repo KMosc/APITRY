@@ -1,5 +1,5 @@
 module Repositories
-    class MovieRepository
+    class MovieRepository  < ::Repositories::Base
         attr_reader :adapter
 
         def initialize(adapter: Models::Movie)

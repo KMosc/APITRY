@@ -1,9 +1,10 @@
 module Repositories
-    class GenreRepository  < ::Repositories::Base
+    class Base
         attr_reader :adapter
 
-        def initialize(adapter: Models::Genre)
+        def initialize(adapter)
             @adapter = adapter
         end
+        
     end
 end
