@@ -1,5 +1,5 @@
 module UseCase
-  module Genre 
+  module Genre < UseCase::Base
     class Create
 
       def call(attrs, callbacks)

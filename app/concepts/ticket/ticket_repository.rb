@@ -5,5 +5,7 @@ module Repositories
         def initialize(adapter: Models::Ticket)
             @adapter = adapter
         end
+
+        def 
     end
 end

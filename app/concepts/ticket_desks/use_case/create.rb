@@ -1,5 +1,5 @@
 module UseCase
-  module TicketDesks 
+  module TicketDesks < UseCase::Base
     class Create
 
       def call(attrs, callbacks)
