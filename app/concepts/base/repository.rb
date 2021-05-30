@@ -25,11 +25,11 @@ module Repositories
               @ticket.save!
             end
           end
-      
+    
           def update_all(:params)
             adapter.update_all(:params)
           end
-          
+
           def confirm_reservation
             adapter.where(paid: false, password: params[:password]).update_all(paid: true)
           end
