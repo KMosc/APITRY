@@ -1,6 +1,6 @@
 module UseCase
     module Movie 
-        class Update < UseCase::Base::Update
+        class Delete < UseCase::Delete
             
         end
     end

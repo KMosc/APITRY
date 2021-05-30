@@ -1,7 +1,6 @@
 module UseCase
     module CinemaHall 
-        class Update < UseCase::Base::Update
-    
+        class Delete < UseCase::Delete
             
         end
     end
