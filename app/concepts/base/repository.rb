@@ -7,6 +7,10 @@ module Repositories
         end
     
 
+        def exists?(:params)
+          adapter.exists?(:params)
+        end
+
         def all
             adapter.all
         end
@@ -22,6 +26,10 @@ module Repositories
             end
           end
       
+          def update_all(:params)
+            adapter.update_all(:params)
+          end
+          
           def confirm_reservation
             adapter.where(paid: false, password: params[:password]).update_all(paid: true)
           end
