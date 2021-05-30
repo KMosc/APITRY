@@ -1,9 +1,6 @@
 module UseCase
-  module Ticket < UseCase::Base
-    class Create
-
-      def call(attrs, callbacks)
-      end
+  module Ticket
+    class Create < UseCase::Base:Create
       
     end
   end

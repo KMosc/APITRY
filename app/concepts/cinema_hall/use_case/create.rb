@@ -1,9 +1,7 @@
 module UseCase
-  module CinemaHall < UseCase::Base
-    class Create
+  module CinemaHall
+    class Create < UseCase::Create
 
-      def call(attrs, callbacks)
-      end
       
     end
   end

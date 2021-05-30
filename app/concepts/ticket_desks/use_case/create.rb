@@ -1,9 +1,6 @@
 module UseCase
-  module TicketDesk < UseCase::Base
-    class Create
-
-      def call(attrs, callbacks)
-      end
+  module TicketDesk
+    class Create < UseCase::Base:Create
 
     end
   end

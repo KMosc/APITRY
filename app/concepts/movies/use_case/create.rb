@@ -1,9 +1,6 @@
 module UseCase
-  module Movie < UseCase::Base
-    class Create
-
-      def call(attrs, callbacks)
-      end
+  module Movie 
+    class Create < UseCase::Base:Create
       
     end
   end

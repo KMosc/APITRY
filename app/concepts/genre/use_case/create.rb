@@ -1,6 +1,6 @@
 module UseCase
-  module Genre < UseCase::Base
-    class Create
+  module Genre
+    class Create < UseCase::Base:Create
 
       def call(attrs, callbacks)
       end
