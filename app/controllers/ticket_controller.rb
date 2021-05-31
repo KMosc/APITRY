@@ -6,7 +6,7 @@ class TicketController < ApplicationController
       @tickets = Repositories::TicketRepository.new(Ticket).where(ticket_params)    
       render json: @tickets, except: [:password, :created_at, :updated_at, :ticket_desk_id]
     else
-      render json: seats_not_taken
+      render json: Tickets::Representer.new(Repositories::TicketRepository.new(Ticket)).seats_not_taken(params[:cinema_hall_id])
     end
   end
 
@@ -38,23 +38,6 @@ class TicketController < ApplicationController
   end
 
 private
-
-    def seats_not_taken
-      return {"empty_seats":
-      (
-      UseCase::CinemaHalls::GenerateSeats.new(
-        Repositories::CinemaHallRepository.new(CinemaHall)
-      ).call(params[:cinema_hall_id]) - (
-        UseCase::Tickets::Taken.new(
-          Repositories::TicketRepository.new(Ticket)
-      ).call)
-      )
-    }
-    end
-
-
-
-      
 
     def route_availabe?
       !TicketDesk.exists?(id: params[:ticket_desk_id]) && !CinemaHall.exists?(id: params[:cinema_hall_id])

@@ -4,6 +4,7 @@ module Repositories
         def where(params)
           adapter.where(params)
         end
+        
         def make_reservation(ticket_params)
             if !adapter.exists?(:paid => false)  
               attributes = ticket_params.clone
