@@ -8,7 +8,8 @@ module UseCase
             seats_taken[i]=ticket[:seat]
             i=i+1
           end
-          return seats_taken        end
+          return seats_taken        
+        end
       end
     end
   end
