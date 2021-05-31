@@ -1,6 +1,6 @@
 module UseCase
     module TicketDesk 
-        class Delete < UseCase::Delete
+        class Delete < UseCase::Base::Delete
             
         end
     end

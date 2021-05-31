@@ -1,11 +1,14 @@
 module UseCase
-    class Base
-        attr_reader :repository
-        
+    module Base
 
-        def initialize(repo)
-            @repository = repo
+        class Base
+            attr_reader :repository
+            
+
+            def initialize(repo)
+                @repository = repo
+            end
+            
         end
-        
     end
 end

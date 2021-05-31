@@ -1,6 +1,6 @@
 module UseCase
-    module Genre 
-        class Delete < UseCase::Delete
+    module Genres
+        class Delete < UseCase::Base::Delete
             
         end
     end

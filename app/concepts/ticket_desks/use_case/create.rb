@@ -1,6 +1,6 @@
 module UseCase
   module TicketDesk
-    class Create < UseCase::Base:Create
+    class Create < UseCase::Base::Create
 
     end
   end

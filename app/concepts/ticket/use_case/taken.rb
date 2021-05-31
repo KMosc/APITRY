@@ -1,6 +1,6 @@
 module UseCase
-    module Ticket
-      class Taken < UseCase::Base
+    module Tickets
+      class Taken < UseCase::Base::Base
         def call()
           seats_taken=[]
           i = 0

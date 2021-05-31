@@ -1,5 +1,5 @@
 module UseCase
-    module Movie 
+    module Movies 
         class Update < UseCase::Base::Update
             
         end

@@ -1,5 +1,5 @@
 module UseCase
-    module Ticket 
+    module Tickets 
         class Update < UseCase::Base::Update
             
         end

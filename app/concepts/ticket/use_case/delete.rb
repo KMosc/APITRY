@@ -1,6 +1,6 @@
 module UseCase
-    module Ticket 
-        class Delete < UseCase::Delete
+    module Tickets 
+        class Delete < UseCase::Base::Delete
             
         end
     end

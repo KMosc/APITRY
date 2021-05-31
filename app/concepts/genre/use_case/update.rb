@@ -1,5 +1,5 @@
 module UseCase
-    module Genre 
+    module Genres 
         class Update < UseCase::Base::Update
             
         end

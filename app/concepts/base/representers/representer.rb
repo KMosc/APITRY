@@ -9,9 +9,7 @@ module Base
 
   
       def single
-        base.map do |out|
-          out
-        end
+        @base
       end
     end
   end

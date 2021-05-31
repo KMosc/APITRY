@@ -19,34 +19,45 @@ class TicketController < ApplicationController
   end
 
   def create
-    #Cant buy if there is not such ticketdesk or cinemahall
-    #Calling multiple methods using .send and []      
-    if !params[:password].blank? && params[:seat].in?(take_seat)
-      if (!Ticket.exists?(:cinema_hall_id => params[:cinema_hall_id], seat: params[:seat], movie_id: params[:movie_id]))
-        #&& Ticket.where(cinema_hall_id: params[:cinema_hall_id], seat: params[:seat], movie_id: params[:movie_id])
-        if ticket_available?
-          if Ticket.exists?(:paid => false)  
-            confirm_reservation
-          else
-            attributes = ticket_params.clone
-            attributes[:paid] = true
-            @ticket=Ticket.new(attributes)
-            render :json => ["log": "ticket.bought"]
-            @ticket.save!
-          end
-        else
-          render :json => ["log": "room.full.of.people"]
-        end
-      else
-        render :json => ["log": "seat.error"]
-      end
-
+    password=params[:password] 
+    seat=params[:seat]
+    cinema_hall_id=params[:cinema_hall_id]
+    movie_id=params[:movie_id]
+    repo = Repositories::TicketRepository.new(Ticket)
+    usecase =UseCase::Tickets::Buy.new(repo)
+    if usecase.call(password, ticket_params, seat, cinema_hall_id, movie_id)
+      render json: ["log": "success"]
     else
-      render :json => ["log": "password.blank?"]
+      render json: ["log": "Error"]
     end
-      
   end
+ #Cant buy if there is not such ticketdesk or cinemahall
+    #Calling multiple methods using .send and []      
+    #if !params[:password].blank? && params[:seat].in?(take_seat)
+      #if (!Ticket.exists?(:cinema_hall_id => params[:cinema_hall_id], seat: params[:seat], movie_id: params[:movie_id]))
+        #&& Ticket.where(cinema_hall_id: params[:cinema_hall_id], seat: params[:seat], movie_id: params[:movie_id])
+        #if ticket_available?
+          #if Ticket.exists?(:paid => false)  
+           # confirm_reservation
+          #else
+            #attributes = ticket_params.clone
+            #attributes[:paid] = true
+            #@ticket=Ticket.new(attributes)
+           # render :json => ["log": "ticket.bought"]
+          #  @ticket.save!
+         # end
+        #else
+        #  render :json => ["log": "room.full.of.people"]
+       # end
+      #else
+      
+      #  render :json => ["log": "seat.error"]
+     # end
 
+    #else
+     # render :json => ["log": "password.blank?"]
+    #end
+      
   def bookin
     make_reservation
   end

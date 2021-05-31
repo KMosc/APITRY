@@ -1,6 +1,6 @@
 module UseCase
-    module CinemaHall 
-        class Delete < UseCase::Delete
+    module CinemaHalls 
+        class Delete < UseCase::Base::Delete
             
         end
     end

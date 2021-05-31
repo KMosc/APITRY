@@ -1,6 +1,6 @@
 module UseCase
-    module Movie 
-        class Delete < UseCase::Delete
+    module Movies 
+        class Delete < UseCase::Base::Delete
             
         end
     end

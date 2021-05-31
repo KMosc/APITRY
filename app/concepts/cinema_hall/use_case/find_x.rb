@@ -1,7 +1,6 @@
 module UseCase
     module CinemaHalls
-        class Update < UseCase::Base::Update
-    
+        class FindX < UseCase::Base::FindX
             
         end
     end

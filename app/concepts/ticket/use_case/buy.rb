@@ -1,13 +1,16 @@
 module UseCase
-    module Ticket
-      class Buy < UseCase::Base
+    module Tickets
+      class Buy < UseCase::Base::Base
         
-        def call(password,ticket_params, seat, cinema_hall_id, movie_id)
-            if !password.blank? && seat.in?(UseCase::CinemaHall::GenerateSeats(Repositories::CinemaHall.new(CinemaHall)).call(cinema_hall_id))
+        def call(password, ticket_params, seat, cinema_hall_id, movie_id)
+          @cinemahallrepo=Repositories::CinemaHallRepository.new(CinemaHall)
+          @generateseats =UseCase::CinemaHalls::GenerateSeats.new(@cinemahallrepo)
+          @test = @generateseats.call(cinema_hall_id)
+            if !password.blank? && seat.in?(@test)
                 if (!repository.exists?(:cinema_hall_id => cinema_hall_id, seat: seat, movie_id: movie_id))
                     if repository.ticket_available?(cinema_hall_id, movie_id)
                         if repository.exists?(:paid => false)  
-                          repository.confirm_reservation
+                          repository.confirm_reservation(password)
                         else
                             attributes = ticket_params.clone
                             attributes[:paid] = true
