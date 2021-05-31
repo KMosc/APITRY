@@ -1,5 +1,5 @@
 module UseCase
-    module Wrapper
+    module Decorator
       class Buy
 
         attr_reader :wrapper

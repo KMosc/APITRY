@@ -1,5 +1,5 @@
   
-module Wrapper
+module Decorator
   module Buy
       class Representer
         attr_reader :wrapper

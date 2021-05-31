@@ -1,5 +1,5 @@
 module Buy
-    class Wrapper 
+    class Decorator 
         attr_reader :leftRepository
         attr_reader :rightRepository
             

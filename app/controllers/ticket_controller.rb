@@ -3,11 +3,11 @@ class TicketController < ApplicationController
 
   def index     
     if !params[:password].blank?
-      @tickets = Repository::TicketRepository.new(Ticket).where(ticket_params)    
+      @tickets = Repository::TicketRepository.new(Ticket).where(ticket_params)
       render json: @tickets, except: [:password, :created_at, :updated_at, :ticket_desk_id]
     else
-      render json: Wrapper::Buy::Representer.new(
-        Buy::Wrapper.new(
+      render json: Decorator::Buy::Representer.new(
+        Buy::Decorator.new(
           Repository::CinemaHallRepository.new(CinemaHall), Repository::TicketRepository.new(Ticket)
           )
         ).seats_not_taken(params[:cinema_hall_id], params[:movie_id]
@@ -27,8 +27,8 @@ class TicketController < ApplicationController
     leftRepository = Repository::TicketRepository.new(Ticket)
     rightRepository = Repository::CinemaHallRepository.new(CinemaHall)
 
-    wrapper = Buy::Wrapper.new(leftRepository, rightRepository)
-    usecase =UseCase::Wrapper::Buy.new(wrapper)
+    wrapper = Buy::Decorator.new(leftRepository, rightRepository)
+    usecase =UseCase::Decorator::Buy.new(wrapper)
     if usecase.call(params[:password], ticket_params, params[:seat], params[:cinema_hall_id], params[:movie_id])
       render json: Tickets::Representer.new(leftRepository).success
     else
