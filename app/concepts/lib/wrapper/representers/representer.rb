@@ -21,8 +21,6 @@ module Wrapper
           )
         }
         end
-        #Repository::CinemaHallRepository.new(CinemaHall)
-        #Repository::TicketRepository.new(Ticket)
     
     end
   end
