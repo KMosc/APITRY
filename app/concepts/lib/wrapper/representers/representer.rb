@@ -5,7 +5,7 @@ module Wrapper
         attr_reader :wrapper
 
     
-        def initialize(wrapper: Wrapper::Buy.new)
+        def initialize(wrapper)
           @wrapper = wrapper
         end
         
@@ -14,14 +14,15 @@ module Wrapper
           return {"empty_seats":
           (
             UseCase::CinemaHalls::GenerateSeats.new(
-              wrapper.repository_2
+            wrapper.leftRepository
             ).call(cinema_hall_id) - UseCase::Tickets::Taken.new(
-              wrapper.repository
+              wrapper.rightRepository
           ).call(cinema_hall_id, movie_id)
           )
         }
         end
-
+        #Repository::CinemaHallRepository.new(CinemaHall)
+        #Repository::TicketRepository.new(Ticket)
     
     end
   end

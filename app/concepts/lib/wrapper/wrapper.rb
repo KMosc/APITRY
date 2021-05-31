@@ -1,19 +1,19 @@
 module Buy
     class Wrapper 
-        attr_reader :repository
-        attr_reader :repository_2
+        attr_reader :leftRepository
+        attr_reader :rightRepository
             
-        def initialize(repository, repository_2)
-            @repository = repository
-            @repository_2 = repository_2
+        def initialize(leftRepository, rightRepository)
+            @leftRepository = leftRepository
+            @rightRepository = rightRepository
     	end
 
         def getLeftRepository
-            @repository
+            @leftRepository
         end
 
         def getRightRepository
-            @repository_2
+            @rightRepository
         end
 	end        
 end
