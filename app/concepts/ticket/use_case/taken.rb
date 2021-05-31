@@ -2,8 +2,13 @@ module UseCase
     module Tickets
       class Taken < UseCase::Base::Base
         def call(cinema_hall_id, movie_id)
-          return repository.all.where(cinema_hall_id: cinema_hall_id, movie_id: movie_id).each_with_index.map { |ticket, index| [index, ticket[:seat]] }[0]
-        end
+          seats_taken=[]
+          i = 0
+          repository.all.each do |ticket|
+            seats_taken[i]=ticket[:seat]
+            i=i+1
+          end
+          return seats_taken        end
       end
     end
   end
