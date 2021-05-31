@@ -1,5 +1,5 @@
-module Wrapper
-    class Buy 
+module Buy
+    class Wrapper 
         attr_reader :repository
         attr_reader :repository_2
             
