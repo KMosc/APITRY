@@ -6,7 +6,7 @@ class TicketController < ApplicationController
       @tickets = Repositories::TicketRepository.new(Ticket).where(ticket_params)    
       render json: @tickets, except: [:password, :created_at, :updated_at, :ticket_desk_id]
     else
-      render json: Tickets::Representer.new(Repositories::TicketRepository.new(Ticket)).seats_not_taken(params[:cinema_hall_id])
+      render json: Tickets::Representer.new(Repositories::TicketRepository.new(Ticket)).seats_not_taken(params[:cinema_hall_id], params[:movie_id])
     end
   end
 
