@@ -4,22 +4,24 @@ module UseCase
 
         attr_reader :wrapper
 
-        def initialize(wrapper: Wrapper::Buy.new)
+        def initialize(wrapper)
           @wrapper = wrapper
         end
         
         def call(password, ticket_params, seat, cinema_hall_id, movie_id)
-          @generateseats = UseCase::CinemaHalls::GenerateSeats.new(@wrapper.repository_2)
+          left = @wrapper.getLeftRepository
+          right = @wrapper.getRightRepository
+          @generateseats = UseCase::CinemaHalls::GenerateSeats.new(right)
           @test = @generateseats.call(cinema_hall_id)
             if !password.blank? && seat.in?(@test)
-                if (!@wrapper.repository.exists?(:cinema_hall_id => cinema_hall_id, seat: seat, movie_id: movie_id))
-                    if @wrapper.repository.ticket_available?(cinema_hall_id, movie_id)
-                        if @wrapper.repository.exists?(:paid => false)  
-                          @wrapper.repository.confirm_reservation(password)
+                if (!left.exists?(:cinema_hall_id => cinema_hall_id, seat: seat, movie_id: movie_id))
+                    if left.ticket_available?(cinema_hall_id, movie_id)
+                        if left.exists?(:paid => false)  
+                          left.confirm_reservation(password)
                         else
                             attributes = ticket_params.clone
                             attributes[:paid] = true
-                            @ticket=@wrapper.repository.new(attributes)
+                            @ticket= left.new(attributes)
                             @ticket.save!
                         end
                     end

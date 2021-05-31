@@ -19,8 +19,11 @@ class TicketController < ApplicationController
   end
 
   def create
-    repo = Repository::TicketRepository.new(Ticket)
-    usecase =UseCase::Tickets::Buy.new(repo)
+    leftRepository = Repository::TicketRepository.new(Ticket)
+    rightRepository = Repository::CinemaHallRepository.new(CinemaHall)
+
+    wrapper = Buy::Wrapper.new(leftRepository, rightRepository)
+    usecase =UseCase::Wrapper::Buy.new(wrapper)
     if usecase.call(params[:password], ticket_params, params[:seat], params[:cinema_hall_id], params[:movie_id])
       render json: ["log": "success"]
     else

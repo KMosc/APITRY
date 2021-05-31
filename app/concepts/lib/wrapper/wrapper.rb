@@ -3,10 +3,18 @@ module Buy
         attr_reader :repository
         attr_reader :repository_2
             
-        def initialize(repository: Repository::TicketRepository.new(Ticket), repository_2: Repository::CinemaHallRepository.new(CinemaHall))
+        def initialize(repository, repository_2)
             @repository = repository
             @repository_2 = repository_2
     	end
+
+        def getLeftRepository
+            @repository
+        end
+
+        def getRightRepository
+            @repository_2
+        end
 	end        
 end
 
