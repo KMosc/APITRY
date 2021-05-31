@@ -30,9 +30,9 @@ class TicketController < ApplicationController
     wrapper = Buy::Wrapper.new(leftRepository, rightRepository)
     usecase =UseCase::Wrapper::Buy.new(wrapper)
     if usecase.call(params[:password], ticket_params, params[:seat], params[:cinema_hall_id], params[:movie_id])
-      render json: ["log": "success"]
+      render json: Tickets::Representer.new(leftRepository).success
     else
-      render json: ["log": "Error"]
+      render json: Tickets::Representer.new(leftRepository).error
     end
   end
       
