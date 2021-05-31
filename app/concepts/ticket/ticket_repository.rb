@@ -1,5 +1,5 @@
-module Repositories
-    class TicketRepository < ::Repositories::Base
+module Repository
+    class TicketRepository < ::Repository::Base
 
         def where(params)
           adapter.where(params)
@@ -22,7 +22,7 @@ module Repositories
       
           def ticket_available?(cinema_hall_id, movie_id)
             obj = CinemaHall
-            @cinema_hall = Repositories::CinemaHallRepository.new(obj).find_by(cinema_hall_id)
+            @cinema_hall = Repository::CinemaHallRepository.new(obj).find_by(cinema_hall_id)
             (adapter.where(movie_id: movie_id).count(:all) < @cinema_hall.read_attribute_before_type_cast(:volume) ) 
           end
 

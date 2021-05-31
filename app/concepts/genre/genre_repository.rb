@@ -1,5 +1,5 @@
-module Repositories
-    class GenreRepository  < ::Repositories::Base
+module Repository
+    class GenreRepository  < ::Repository::Base
         attr_reader :adapter
 
         def initialize(adapter: Models::Genre)

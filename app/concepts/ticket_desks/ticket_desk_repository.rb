@@ -1,4 +1,4 @@
-module Repositories
-    class TicketDeskRepository < ::Repositories::Base
+module Repository
+    class TicketDeskRepository < ::Repository::Base
     end
 end

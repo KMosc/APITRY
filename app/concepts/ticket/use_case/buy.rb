@@ -3,7 +3,7 @@ module UseCase
       class Buy < UseCase::Base::Base
         
         def call(password, ticket_params, seat, cinema_hall_id, movie_id)
-          @cinemahallrepo=Repositories::CinemaHallRepository.new(CinemaHall)
+          @cinemahallrepo=Repository::CinemaHallRepository.new(CinemaHall)
           @generateseats =UseCase::CinemaHalls::GenerateSeats.new(@cinemahallrepo)
           @test = @generateseats.call(cinema_hall_id)
             if !password.blank? && seat.in?(@test)

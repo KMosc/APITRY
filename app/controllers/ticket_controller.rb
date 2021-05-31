@@ -3,10 +3,10 @@ class TicketController < ApplicationController
 
   def index     
     if !params[:password].blank?
-      @tickets = Repositories::TicketRepository.new(Ticket).where(ticket_params)    
+      @tickets = Repository::TicketRepository.new(Ticket).where(ticket_params)    
       render json: @tickets, except: [:password, :created_at, :updated_at, :ticket_desk_id]
     else
-      render json: Tickets::Representer.new(Repositories::TicketRepository.new(Ticket)).seats_not_taken(params[:cinema_hall_id], params[:movie_id])
+      render json: Tickets::Representer.new(Repository::TicketRepository.new(Ticket)).seats_not_taken(params[:cinema_hall_id], params[:movie_id])
     end
   end
 
@@ -15,11 +15,11 @@ class TicketController < ApplicationController
   end
   
   def new
-    @ticket = Repositories::TicketRepository.new(Ticket).new
+    @ticket = Repository::TicketRepository.new(Ticket).new
   end
 
   def create
-    repo = Repositories::TicketRepository.new(Ticket)
+    repo = Repository::TicketRepository.new(Ticket)
     usecase =UseCase::Tickets::Buy.new(repo)
     if usecase.call(params[:password], ticket_params, params[:seat], params[:cinema_hall_id], params[:movie_id])
       render json: ["log": "success"]
@@ -29,7 +29,7 @@ class TicketController < ApplicationController
   end
       
   def bookin
-    repo = Repositories::TicketRepository.new(Ticket)
+    repo = Repository::TicketRepository.new(Ticket)
     if repo.make_reservation(ticket_params)
       render json: Tickets::Representer.new(repo).single
     else 

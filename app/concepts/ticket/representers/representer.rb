@@ -6,9 +6,9 @@ module Tickets
         return {"empty_seats":
         (
           UseCase::CinemaHalls::GenerateSeats.new(
-            Repositories::CinemaHallRepository.new(CinemaHall)
+            Repository::CinemaHallRepository.new(CinemaHall)
           ).call(cinema_hall_id) - UseCase::Tickets::Taken.new(
-            Repositories::TicketRepository.new(Ticket)
+            Repository::TicketRepository.new(Ticket)
         ).call(cinema_hall_id, movie_id)
         )
       }

@@ -1,4 +1,4 @@
-module Repositories
+module Repository
     class Base 
         attr_reader :adapter
 

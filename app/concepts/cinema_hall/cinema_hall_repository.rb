@@ -1,5 +1,5 @@
-module Repositories
-    class CinemaHallRepository  < ::Repositories::Base
+module Repository
+    class CinemaHallRepository  < ::Repository::Base
 
     end
 end
