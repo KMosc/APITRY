@@ -1,50 +1,31 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: [:show, :update, :destroy]
 
-  # GET /cinema_halls
   def index
-
-      render json: Movie.where(cinema_hall_id: params[:cinema_hall_id]).order(title: :desc).map do |movie| {
-        id: movie.id, 
-        title: movie.title, 
-        description: movie.description, 
-        age_restriction: movie.age_restriction, 
-        starts_at: movie.starts_at, 
-        ends_at: movie.ends_at,
-        genre_id: movie.genre_id
-      }
+    if Repository::TicketDeskRepository.new(TicketDesk).exists?(id: params[:ticket_desk_id])
+      render json: Movies::Representer.new(Movie.all).single.where(
+        cinema_hall_id: params[:cinema_hall_id]
+      ).order(title: :asc), except: [:created_at, :updated_at]
     end
   end
 
-  # GET /cinema_halls/1
   def show
   end
 
-  # POST /cinema_halls
   def create
-      render json: Movie.create(movie_params)
+      repository=Repository::MovieRepository.new(Movie)
+      if UseCase::Movies::Create.new(repository).new(movie_params)
+        render json: ["log": "success"]
+      else
+        render json: ["log": "failure"]
+      end
   end
 
-  # PATCH/PUT /cinema_halls/1
-  def update
-    if @movie.update(movie_params)
-      render json: @movie
-    else
-      render json: @cinema_hall.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /cinema_halls/1
   def destroy
-    @cinema_hall.destroy
+    repository=Repository::MovieRepository.new(Movie)
+    UseCase::Movies::Delete.new(repository).call(id: params[:id])
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_movie
-      @movie = Movie.find_by(id: params[:id])
-    end
-
     # Only allow a list of trusted parameters through.
     def movie_params
       params.permit(:id, :title, :description, :age_restriction, :starts_at, :ends_at, :genre_id, :cinema_hall_id)

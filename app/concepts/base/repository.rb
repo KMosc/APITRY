@@ -31,8 +31,8 @@ module Repository
             adapter.save!
         end
 
-        def delete(base)
-            base.destroy
+        def delete(param)
+            adapter.delete_by(param)
         end
       
         def find_by(id)

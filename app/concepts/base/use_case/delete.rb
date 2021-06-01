@@ -2,8 +2,8 @@ module UseCase
     module Base 
         class Delete < ::UseCase::Base::Base
         
-            def call(obj)
-                repository.delete(obj)
+            def call(param)
+                repository.delete(param)
             end
             
         end

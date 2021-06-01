@@ -1,14 +1,8 @@
 class GenreController < ApplicationController
+
   def index
-
-    render json: Genre.order(id: :desc).map do |genre| {
-      id: genre.id,
-      title: genre.title,
-      description: genre.description
-
-    }
+      render json: Genres::Representer.new(Genre.all).single.order(title: :asc), except: [:created_at, :updated_at]
   end
-end
 
 # GET /cinema_halls/1
 def show
@@ -16,15 +10,11 @@ end
 
 # POST /cinema_halls
 def create
-    render json: Genre.create(genre_params)
-end
-
-# PATCH/PUT /cinema_halls/1
-def update
-  if @genre.update(genre_params)
-    render json: @genre
+  repository=Repository::GenreRepository.new(Genre)
+  if UseCase::Genres::Create.new(repository).call(genre_params)
+    render json: ["log": "success"]
   else
-    render json: @genre.errors, status: :unprocessable_entity
+    render json: ["log": "failure"]
   end
 end
 
@@ -34,11 +24,6 @@ def destroy
 end
 
 private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_genre
-    @genre = Genre.find(params[:id])
-  end
-
   # Only allow a list of trusted parameters through.
   def genre_params
     params.permit(:id, :title, :description)

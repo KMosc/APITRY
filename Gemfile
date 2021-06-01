@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.0'
 gem 'redis'
 gem 'resque'
+gem 'mailcatcher'
 gem 'rspec', '~> 3.0'
 gem 'sidekiq'
 gem "sentry-ruby"

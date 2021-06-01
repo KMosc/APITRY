@@ -1,52 +1,39 @@
 class CinemaHallsController < ApplicationController
-  before_action :set_cinema_hall, only: [:show, :update, :destroy]
-
-  # GET /cinema_halls
+  
   def index
-    if TicketDesk.exists?(id: params[:ticket_desk_id])
-
-      render json: CinemaHall.order(volume: :desc).map do |cinema_hall| {
-        id: cinema_hall.id,
-        volume: cinema_hall.volume
-
-      }
-    end
-    else
-      render :json => []
-
+    if Repository::TicketDeskRepository.new(TicketDesk).exists?(id: params[:ticket_desk_id])
+      render json: CinemaHalls::Representer.new(CinemaHall.all).single.order(volume: :asc) , except: [:created_at, :updated_at]
     end
   end
 
-  # GET /cinema_halls/1
   def show
   end
 
-  # POST /cinema_halls
   def create
-      render json: CinemaHall.create(cinema_hall_params)
-  end
-
-  # PATCH/PUT /cinema_halls/1
-  def update
-    if @cinema_hall.update(cinema_hall_params)
-      render json: @cinema_hall
+    repository=Repository::CinemaHallRepository.new(CinemaHall)
+    if UseCase::CinemaHalls::Create.new(repository).call(cinema_hall_params)
+      render json: ["log": "success"]
     else
-      render json: @cinema_hall.errors, status: :unprocessable_entity
+      render json: ["log": "failure"]
     end
   end
 
-  # DELETE /cinema_halls/1
+  def update
+    repository=Repository::CinemaHallRepository.new(CinemaHall)
+    if UseCase::CinemaHalls::Update.new(repository).call(cinema_hall_params)
+      render json: ["log": "success"]
+    else
+      render json: ["log": "failure"]
+    end
+  end
+
   def destroy
-    @cinema_hall.destroy
+    repository=Repository::CinemaHallRepository.new(CinemaHall)
+    UseCase::CinemaHalls::Delete.new(repository).call(id: params[:id])
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cinema_hall
-      @cinema_hall = CinemaHall.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
     def cinema_hall_params
       params.permit(:id, :volume)
     end
