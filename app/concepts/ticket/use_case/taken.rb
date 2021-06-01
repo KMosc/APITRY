@@ -4,7 +4,7 @@ module UseCase
         def call(cinema_hall_id, movie_id)
           seats_taken=[]
           i = 0
-          repository.all.each do |ticket|
+          repository.all.where(cinema_hall_id: cinema_hall_id, movie_id: movie_id).each do |ticket|
             seats_taken[i]=ticket[:seat]
             i=i+1
           end
