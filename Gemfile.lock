@@ -240,6 +240,7 @@ DEPENDENCIES
   pg
   puma (~> 5.0)
   rails
+  redis
   resque
   rspec (~> 3.0)
   rspec-rails (~> 5.0.0)
