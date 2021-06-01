@@ -5,5 +5,7 @@ class Ticket < ApplicationRecord
   validates :ticket_desk_id, numericality: { only_integer: true }
   validates :cinema_hall_id, numericality: { only_integer: true }
   validates :movie_id, numericality: { only_integer: true }
+  validates_uniqueness_of :seat, conditions: -> { where.not(movie_id: :movie_id, cinema_hall_id: :cinema_hall_id) }
+
 end
   
