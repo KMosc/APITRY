@@ -24,18 +24,13 @@ class TicketController < ApplicationController
   end
 
   def create
+    
     leftRepository = Repository::TicketRepository.new(Ticket)
     rightRepository = Repository::CinemaHallRepository.new(CinemaHall)
 
     wrapper = Buy::Decorator.new(leftRepository, rightRepository)
     usecase =UseCase::Decorator::Buy.new(wrapper)
     if usecase.call(params[:password], ticket_params, params[:seat], params[:cinema_hall_id], params[:movie_id])
-      TicketMailer.with(
-        password: params[:password], 
-        cinema_hall_id: params[:cinema_hall_id], 
-        movie_id: params[:movie_id], 
-        seat: params[:seat] 
-        ).mail_after_success_buy.deliver_now!
       render json: Tickets::Representer.new(leftRepository).success
     else
       render json: Tickets::Representer.new(leftRepository).error
@@ -65,4 +60,12 @@ private
       params.permit(:id, :paid, :password, :seat, :ticket_desk_id, :cinema_hall_id, :movie_id)
     end    
 
+    def mail
+      TicketMailer.with(
+        password: params[:password], 
+        cinema_hall_id: params[:cinema_hall_id], 
+        movie_id: params[:movie_id], 
+        seat: params[:seat] 
+        ).mail_after_success_buy.deliver_now!
+    end
 end
