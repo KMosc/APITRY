@@ -24,7 +24,6 @@ class TicketController < ApplicationController
   end
 
   def create
-    
     leftRepository = Repository::TicketRepository.new(Ticket)
     rightRepository = Repository::CinemaHallRepository.new(CinemaHall)
 
