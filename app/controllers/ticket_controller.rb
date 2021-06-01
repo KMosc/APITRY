@@ -35,7 +35,7 @@ class TicketController < ApplicationController
         cinema_hall_id: params[:cinema_hall_id], 
         movie_id: params[:movie_id], 
         seat: params[:seat] 
-        ).mail_after_success_buy
+        ).mail_after_success_buy.deliver_now!
       render json: Tickets::Representer.new(leftRepository).success
     else
       render json: Tickets::Representer.new(leftRepository).error

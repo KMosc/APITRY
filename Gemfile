@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.0'
 gem 'resque'
+gem 'mailcatcher'
 gem 'rspec', '~> 3.0'
 gem "sentry-ruby"
 gem "sentry-rails"
