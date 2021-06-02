@@ -2,12 +2,12 @@ class TicketController < ApplicationController
 
   def index     
     if !params[:password].blank?
-      @tickets = Repository::TicketRepository.new(Ticket).where(ticket_params)
+      @tickets = Repository::TicketRepository.new.where(ticket_params)
       render json: @tickets, except: [:password, :created_at, :updated_at, :ticket_desk_id]
     else
       render json: Decorator::Buy::Representer.new(
         Buy::Decorator.new(
-          Repository::CinemaHallRepository.new(CinemaHall), Repository::TicketRepository.new(Ticket)
+          Repository::CinemaHallRepository.new, Repository::TicketRepository.new
           )
         ).seats_not_taken(params[:cinema_hall_id], params[:movie_id]
         )
@@ -23,14 +23,14 @@ class TicketController < ApplicationController
   end
 
   def create
-    left_Repository = Repository::TicketRepository.new(Ticket)
-    right_Repository = Repository::CinemaHallRepository.new(CinemaHall)
+    left_Repository = Repository::TicketRepository.new
+    right_Repository = Repository::CinemaHallRepository.new
     wrapper = Buy::Decorator.new(left_Repository, right_Repository)
     self.post_success(wrapper)
   end
       
   def bookin
-    repo = Repository::TicketRepository.new(Ticket)
+    repo = Repository::TicketRepository.new
     if !repo.make_reservation(ticket_params)
       render json: ["log": "error"]
     else 

@@ -10,7 +10,7 @@ end
 
 # POST /cinema_halls
 def create
-  repository=Repository::GenreRepository.new(Genre)
+  repository=Repository::GenreRepository.new
   self.post_success(repository)
 end
 
@@ -28,7 +28,7 @@ private
       render json: ["log": "failure"]
     end
   end
-  
+
   def genre_params
     params.permit(:id, :title, :description)
   end

@@ -14,9 +14,9 @@ module Decorator
           return {"empty_seats":
           (
             UseCase::CinemaHalls::GenerateSeats.new(
-            wrapper.getLeftRepository
+            wrapper.left_Repository
             ).call(cinema_hall_id) - UseCase::Tickets::Taken.new(
-              wrapper.getRightRepository
+              wrapper.right_Repository
           ).call(cinema_hall_id, movie_id)
           )
         }

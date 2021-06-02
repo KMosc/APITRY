@@ -1,7 +1,7 @@
 class CinemaHallsController < ApplicationController
   
   def index
-    if Repository::TicketDeskRepository.new(TicketDesk).exists?(id: params[:ticket_desk_id])
+    if Repository::TicketDeskRepository.new.exists?(id: params[:ticket_desk_id])
       render json: CinemaHalls::Representer.new(CinemaHall.all).single.order(volume: :asc) , except: [:created_at, :updated_at]
     end
   end
@@ -10,12 +10,12 @@ class CinemaHallsController < ApplicationController
   end
 
   def create
-    repository=Repository::CinemaHallRepository.new(CinemaHall)
+    repository=Repository::CinemaHallRepository.new
     post_success(repository) 
   end
 
   def update
-    repository=Repository::CinemaHallRepository.new(CinemaHall)
+    repository=Repository::CinemaHallRepository.new
     if UseCase::CinemaHalls::Update.new(repository).call(cinema_hall_params)
       render json: ["log": "success"]
     else
@@ -24,7 +24,7 @@ class CinemaHallsController < ApplicationController
   end
 
   def destroy
-    repository=Repository::CinemaHallRepository.new(CinemaHall)
+    repository=Repository::CinemaHallRepository.new
     UseCase::CinemaHalls::Delete.new(repository).call(id: params[:id])
   end
 

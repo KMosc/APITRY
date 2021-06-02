@@ -12,19 +12,19 @@ class MoviesController < ApplicationController
   end
 
   def create
-      repository=Repository::MovieRepository.new(Movie)
+      repository=Repository::MovieRepository.new
       self.post_success(repository)
   end
 
   def destroy
-    repository=Repository::MovieRepository.new(Movie)
+    repository=Repository::MovieRepository.new
     UseCase::Movies::Delete.new(repository).call(id: params[:id])
   end
 
   private
     # Only allow a list of trusted parameters through.
     def post_success
-      if UseCase::Movies::Create.new(repository).new(movie_params)
+      if UseCase::Movies::Create.new(repository).call(movie_params)
         render json: ["log": "success"]
       else
         render json: ["log": "failure"]
@@ -32,6 +32,6 @@ class MoviesController < ApplicationController
     end
     
     def validate?
-      Repository::TicketDeskRepository.new(TicketDesk).exists?(id: params[:ticket_desk_id])
+      Repository::TicketDeskRepository.new.exists?(id: params[:ticket_desk_id])
     end
 end
