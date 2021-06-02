@@ -1,5 +1,4 @@
 class TicketController < ApplicationController
-  before_action :set_ticket, only: []
 
   def index     
     if !params[:password].blank?
@@ -24,24 +23,18 @@ class TicketController < ApplicationController
   end
 
   def create
-    leftRepository = Repository::TicketRepository.new(Ticket)
-    rightRepository = Repository::CinemaHallRepository.new(CinemaHall)
-
-    wrapper = Buy::Decorator.new(leftRepository, rightRepository)
-    usecase =UseCase::Decorator::Buy.new(wrapper)
-    if usecase.call(params[:password], ticket_params, params[:seat], params[:cinema_hall_id], params[:movie_id])
-      render json: Tickets::Representer.new(leftRepository).success
-    else
-      render json: Tickets::Representer.new(leftRepository).error
-    end
+    left_Repository = Repository::TicketRepository.new(Ticket)
+    right_Repository = Repository::CinemaHallRepository.new(CinemaHall)
+    wrapper = Buy::Decorator.new(left_Repository, right_Repository)
+    self.post_success(wrapper)
   end
       
   def bookin
     repo = Repository::TicketRepository.new(Ticket)
-    if repo.make_reservation(ticket_params)
-      render json: Tickets::Representer.new(repo).single
-    else 
+    if !repo.make_reservation(ticket_params)
       render json: ["log": "error"]
+    else 
+      render json: Tickets::Representer.new(repo).single
     end
   end
 
@@ -51,9 +44,13 @@ private
       !TicketDesk.exists?(id: params[:ticket_desk_id]) && !CinemaHall.exists?(id: params[:cinema_hall_id])
     end
 
-    def set_ticket
-      @ticket = Ticket.find(params[:id])      
-    end
+    def post_success(wrapper)
+      usecase =UseCase::Decorator::Buy.new(wrapper)
+      if usecase.call(params[:password], ticket_params, params[:seat], params[:cinema_hall_id], params[:movie_id])
+        render json: Tickets::Representer.new(leftRepository).success
+      else
+        render json: Tickets::Representer.new(leftRepository).error
+      end
 
     def ticket_params
       params.permit(:id, :paid, :password, :seat, :ticket_desk_id, :cinema_hall_id, :movie_id)

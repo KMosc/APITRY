@@ -9,14 +9,19 @@ class TicketDesksController < ApplicationController
 
   def create
     repository=Repository::TicketDeskRepository.new(TicketDesk)
-    if UseCase::TicketDesk::Create.new(repository).call(ticket_desk_params)
-      render json: ["log": "success"]
-    else
-      render json: ["log": "failure"]
-    end
+    self.post_success(repository)
   end
 
   private
+
+    def post_success(repository)
+      if UseCase::TicketDesk::Create.new(repository).call(ticket_desk_params)
+        render json: ["log": "success"]
+      else
+        render json: ["log": "failure"]
+      end
+    end
+
     def ticket_desk_params
       params.permit(:id, :name, :automated)
     end

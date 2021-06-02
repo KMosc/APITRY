@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
 
   def index
-    if Repository::TicketDeskRepository.new(TicketDesk).exists?(id: params[:ticket_desk_id])
+    if self.validate?
       render json: Movies::Representer.new(Movie.all).single.where(
         cinema_hall_id: params[:cinema_hall_id]
       ).order(title: :asc), except: [:created_at, :updated_at]
@@ -13,11 +13,7 @@ class MoviesController < ApplicationController
 
   def create
       repository=Repository::MovieRepository.new(Movie)
-      if UseCase::Movies::Create.new(repository).new(movie_params)
-        render json: ["log": "success"]
-      else
-        render json: ["log": "failure"]
-      end
+      self.post_success(repository)
   end
 
   def destroy
@@ -27,7 +23,14 @@ class MoviesController < ApplicationController
 
   private
     # Only allow a list of trusted parameters through.
-    def movie_params
-      params.permit(:id, :title, :description, :age_restriction, :starts_at, :ends_at, :genre_id, :cinema_hall_id)
+    def post_success
+      if UseCase::Movies::Create.new(repository).new(movie_params)
+        render json: ["log": "success"]
+      else
+        render json: ["log": "failure"]
+      end
     end
+    
+    def validate?
+      Repository::TicketDeskRepository.new(TicketDesk).exists?(id: params[:ticket_desk_id])
 end

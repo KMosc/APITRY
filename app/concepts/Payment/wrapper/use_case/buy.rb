@@ -24,12 +24,12 @@ module UseCase
     end
 
     def success(left, ticket_params)
-      if left.exists?(:paid => false)  
-        left.confirm_reservation(password)
-      else
-        attributes = ticket_params.clone
-        attributes[:paid] = true
-        @ticket= left.new(attributes).save!
+      unless left.exists?(:paid => false)  
+          attributes = ticket_params.clone
+          attributes[:paid] = true
+          @ticket= left.new(attributes).save!
+        else
+          left.confirm_reservation(password)
       end
     end
 

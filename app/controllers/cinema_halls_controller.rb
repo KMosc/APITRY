@@ -11,11 +11,7 @@ class CinemaHallsController < ApplicationController
 
   def create
     repository=Repository::CinemaHallRepository.new(CinemaHall)
-    if UseCase::CinemaHalls::Create.new(repository).call(cinema_hall_params)
-      render json: ["log": "success"]
-    else
-      render json: ["log": "failure"]
-    end
+    post_success(repository) 
   end
 
   def update
@@ -33,6 +29,14 @@ class CinemaHallsController < ApplicationController
   end
 
   private
+
+    def post_success(repository)
+      if UseCase::Movies::Create.new(repository).new(movie_params)
+        render json: ["log": "success"]
+      else
+        render json: ["log": "failure"]
+      end
+    end
 
     def cinema_hall_params
       params.permit(:id, :volume)

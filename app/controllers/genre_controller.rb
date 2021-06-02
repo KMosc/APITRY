@@ -11,11 +11,7 @@ end
 # POST /cinema_halls
 def create
   repository=Repository::GenreRepository.new(Genre)
-  if UseCase::Genres::Create.new(repository).call(genre_params)
-    render json: ["log": "success"]
-  else
-    render json: ["log": "failure"]
-  end
+  self.post_success(repository)
 end
 
 # DELETE /cinema_halls/1
@@ -25,6 +21,14 @@ end
 
 private
   # Only allow a list of trusted parameters through.
+  def post_success(repository)
+    if UseCase::Genres::Create.new(repository).call(genre_params)
+      render json: ["log": "success"]
+    else
+      render json: ["log": "failure"]
+    end
+  end
+  
   def genre_params
     params.permit(:id, :title, :description)
   end
