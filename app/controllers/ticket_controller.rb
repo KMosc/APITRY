@@ -19,7 +19,7 @@ class TicketController < ApplicationController
   end
   
   def new
-    @ticket = Repository::TicketRepository.new(Ticket).new
+    @ticket = Repository::TicketRepository.new.new
   end
 
   def create
