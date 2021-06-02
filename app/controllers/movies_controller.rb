@@ -18,12 +18,15 @@ class MoviesController < ApplicationController
 
   def destroy
     repository=Repository::MovieRepository.new
-    UseCase::Movies::Delete.new(repository).call(id: params[:id])
+    UseCase::Movies::Delete.new.call(id: params[:id])
   end
 
   private
+  def movie_params
+    params.permit(:id, :title, :description, :age_restriction, :starts_at, :ends_at, :genre_id, :cinema_hall_id)
+  end
     # Only allow a list of trusted parameters through.
-    def post_success
+    def post_success(repository)
       if UseCase::Movies::Create.new(repository).call(movie_params)
         render json: ["log": "success"]
       else
