@@ -31,7 +31,7 @@ class CinemaHallsController < ApplicationController
   private
 
     def post_success(repository)
-      if UseCase::Movies::Create.new(repository).new(movie_params)
+      if UseCase::Movies::Create.new(repository).new(cinema_hall_params)
         render json: ["log": "success"]
       else
         render json: ["log": "failure"]

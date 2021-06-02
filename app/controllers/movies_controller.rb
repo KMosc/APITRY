@@ -25,6 +25,7 @@ class MoviesController < ApplicationController
   def movie_params
     params.permit(:id, :title, :description, :age_restriction, :starts_at, :ends_at, :genre_id, :cinema_hall_id)
   end
+  
     # Only allow a list of trusted parameters through.
     def post_success(repository)
       if UseCase::Movies::Create.new(repository).call(movie_params)
