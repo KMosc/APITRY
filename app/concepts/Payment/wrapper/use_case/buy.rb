@@ -12,7 +12,7 @@ module UseCase
           left = @wrapper.getLeftRepository
           right = @wrapper.getRightRepository
           if validate?(id,password, left, right, seat,cinema_hall_id, movie_id)
-            success(left,ticket_params)
+            success(left,ticket_params, cinema_hall_id, seat, movie_id)
           end
         end
     
@@ -23,14 +23,10 @@ module UseCase
       !password.blank? && left_Repository.where(id: id, cinema_hall_id: cinema_hall_id, movie_id: movie_id) && seat.in?(@generateseats) && (!left_Repository.exists?(:cinema_hall_id => cinema_hall_id, seat: seat, movie_id: movie_id)) && left_Repository.ticket_available?(cinema_hall_id, movie_id)
     end
 
-    def success(left, ticket_params)
-      unless left.exists?(:paid => false)  
-          attributes = ticket_params.clone
-          attributes[:paid] = true
-          @ticket= left.new(attributes).save!
-        else
-          left.confirm_reservation(password)
-      end
+    def success(left, ticket_params, cinema_hall_id, seat, movie_id)
+        attributes = ticket_params.clone
+        attributes[:paid] = true
+        @ticket= left.new(attributes).save!
     end
 
     end
