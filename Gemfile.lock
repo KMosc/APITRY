@@ -69,10 +69,8 @@ GEM
     concurrent-ruby (1.1.8)
     connection_pool (2.2.5)
     crass (1.0.6)
-    daemons (1.4.0)
     diff-lcs (1.4.4)
     erubi (1.10.0)
-    eventmachine (1.2.7)
     faraday (1.4.2)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
@@ -89,12 +87,8 @@ GEM
     ffi (1.15.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    haml (5.2.1)
-      temple (>= 0.8.0)
-      tilt
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
-    json (2.5.1)
     jwt (2.2.3)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -104,16 +98,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    mailcatcher (0.2.4)
-      eventmachine
-      haml
-      i18n
-      json
-      mail
-      sinatra
-      skinny (>= 0.1.2)
-      sqlite3-ruby
-      thin
     marcel (1.0.1)
     method_source (1.0.0)
     mini_mime (1.0.3)
@@ -224,9 +208,6 @@ GEM
       rack (~> 2.2)
       rack-protection (= 2.1.0)
       tilt (~> 2.0)
-    skinny (0.2.2)
-      eventmachine (~> 1.0)
-      thin
     spring (2.1.1)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -235,14 +216,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
-    sqlite3-ruby (1.3.3)
-      sqlite3 (>= 1.3.3)
-    temple (0.8.2)
-    thin (1.8.1)
-      daemons (~> 1.0, >= 1.0.9)
-      eventmachine (~> 1.0, >= 1.0.4)
-      rack (>= 1, < 3)
     thor (1.1.0)
     tilt (2.0.10)
     tzinfo (2.0.4)
@@ -264,7 +237,6 @@ DEPENDENCIES
   byebug
   jwt
   listen (~> 3.3)
-  mailcatcher
   pg
   puma (~> 5.0)
   rails

@@ -4,7 +4,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.0'
 gem 'redis'
 gem 'resque'
-gem 'mailcatcher'
 gem 'rspec', '~> 3.0'
 gem 'sidekiq'
 gem "sentry-ruby"
@@ -14,7 +13,6 @@ gem 'scout_apm'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails'
 # Use postgresql as the database for Active Record
-gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -25,6 +23,9 @@ gem 'puma', '~> 5.0'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'bcrypt', '~> 3.1.7'
 
+group :production do
+  gem 'pg'
+end
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
