@@ -33,4 +33,5 @@ class MoviesController < ApplicationController
     
     def validate?
       Repository::TicketDeskRepository.new(TicketDesk).exists?(id: params[:ticket_desk_id])
+    end
 end

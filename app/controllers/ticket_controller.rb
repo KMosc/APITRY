@@ -47,10 +47,11 @@ private
     def post_success(wrapper)
       usecase =UseCase::Decorator::Buy.new(wrapper)
       if usecase.call(params[:password], ticket_params, params[:seat], params[:cinema_hall_id], params[:movie_id])
-        render json: Tickets::Representer.new(leftRepository).success
+        render json: Tickets::Representer.new(wrapper.left_Repository).success
       else
-        render json: Tickets::Representer.new(leftRepository).error
+        render json: Tickets::Representer.new(wrapper.left_Repository).error
       end
+    end
 
     def ticket_params
       params.permit(:id, :paid, :password, :seat, :ticket_desk_id, :cinema_hall_id, :movie_id)

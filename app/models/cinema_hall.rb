@@ -4,9 +4,6 @@ validate :id, :if => :exist?
 validates :volume, numericality: { less_than_or_equal_to: 200,  only_integer: true }
 
 
-
-
-
 def cinema_hall_id
     self.id
 end
