@@ -56,16 +56,15 @@ Rails.application.configure do
   config.active_job.queue_name_prefix = "try_production"
 
   config.action_mailer.perform_caching = true
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-   :address              => "smtp.gmail.com",
-   :port                 => 587,
-   :user_name            => ENV['gmail_username'],
-   :password             => ENV['gmail_password'],
-   :authentication       => "tsl",
-    :enable_starttls_auto => true
+    port: 587,
+    address: 'smtp.gmail.com',
+    :user_name            => 'kamil.mazurek319@gmail.com',
+    :password             => ENV['railsmailpass'],
+    authentication: :plain,
+    enable_starttls_auto: true
   }
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
