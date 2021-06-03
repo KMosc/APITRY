@@ -63,8 +63,7 @@ Rails.application.configure do
     address: 'smtp.gmail.com',
     :user_name            => 'kamil.mazurek319@gmail.com',
     :password             => ENV['railsmailpass'],
-    authentication: :plain,
-    enable_starttls_auto: true
+    authentication: :plain
   }
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
