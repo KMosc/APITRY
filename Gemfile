@@ -4,7 +4,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.0'
 gem 'redis'
 gem 'resque'
-gem 'mailcatcher'
 gem 'rspec', '~> 3.0'
 gem 'sidekiq'
 gem "sentry-ruby"
@@ -50,6 +49,7 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'pq'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
