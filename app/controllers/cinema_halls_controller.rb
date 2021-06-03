@@ -2,7 +2,6 @@ class CinemaHallsController < ApplicationController
   
   def index
       render json: CinemaHalls::Representer.new(CinemaHall.all).single.order(volume: :asc) , except: [:created_at, :updated_at]
-    end
   end
 
   def show
