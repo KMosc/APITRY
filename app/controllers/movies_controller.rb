@@ -1,11 +1,9 @@
 class MoviesController < ApplicationController
 
   def index
-    if self.validate?
       render json: Movies::Representer.new(Movie.all).single.where(
         cinema_hall_id: params[:cinema_hall_id]
       ).order(title: :asc), except: [:created_at, :updated_at]
-    end
   end
 
   def show
@@ -35,7 +33,4 @@ class MoviesController < ApplicationController
       end
     end
     
-    def validate?
-      Repository::TicketDeskRepository.new.exists?(id: params[:ticket_desk_id])
-    end
 end

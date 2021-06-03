@@ -1,7 +1,6 @@
 class CinemaHallsController < ApplicationController
   
   def index
-    if Repository::TicketDeskRepository.new.exists?(id: params[:ticket_desk_id])
       render json: CinemaHalls::Representer.new(CinemaHall.all).single.order(volume: :asc) , except: [:created_at, :updated_at]
     end
   end

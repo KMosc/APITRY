@@ -12,18 +12,19 @@ module UseCase
           left = @wrapper.getLeftRepository
           right = @wrapper.getRightRepository
           if validate?(id,password, left, right, seat,cinema_hall_id, movie_id)
-            success(left,ticket_params, cinema_hall_id, seat, movie_id)
+            payment(left,ticket_params, cinema_hall_id, seat, movie_id)
           end
         end
     
     private
 
     def validate?(id,password, left_Repository, right_Repository, seat, cinema_hall_id, movie_id)
-      @generateseats = UseCase::CinemaHalls::GenerateSeats.new(right_Repository).call(cinema_hall_id)
-      !password.blank? && left_Repository.where(id: id, cinema_hall_id: cinema_hall_id, movie_id: movie_id) && seat.in?(@generateseats) && (!left_Repository.exists?(:cinema_hall_id => cinema_hall_id, seat: seat, movie_id: movie_id)) && left_Repository.ticket_available?(cinema_hall_id, movie_id)
+      @available_seats = UseCase::CinemaHalls::GenerateSeats.new(right_Repository).call(cinema_hall_id)
+      @hidden_seats = UseCase::Tickets::Taken.new(left_Repository).call(id, cinema_hall_id, movie_id)
+      !password.blank? && seat.in?(@available_seats) && !seat.in?(@hidden_seats)
     end
 
-    def success(left, ticket_params, cinema_hall_id, seat, movie_id)
+    def payment(left, ticket_params, cinema_hall_id, seat, movie_id)
         attributes = ticket_params.clone
         attributes[:paid] = true
         @ticket= left.new(attributes).save!

@@ -21,11 +21,7 @@ module Repository
           def confirm_reservation(password)
             adapter.where(paid: false, password: password).update_all(paid: true)
           end
-      
-          def ticket_available?(cinema_hall_id, movie_id)
-            @cinema_hall = Repository::CinemaHallRepository.new.find_by(cinema_hall_id)
-            (adapter.where(movie_id: movie_id).count(:all) < @cinema_hall.read_attribute_before_type_cast(:volume) ) 
-          end
+    
 
     end
 end
