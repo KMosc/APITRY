@@ -13,7 +13,7 @@ module UseCase
                           seats[i] = "#{i/10+1}#{big_alphabet[i%10]}"
                     end
                 rescue ActiveRecord::RecordNotFound => e
-                    seats = [""]
+                    seats = []
                 end
                 return seats
             end
