@@ -9,8 +9,8 @@ module UseCase
         end
 
         def call(id,password, ticket_params, seat, cinema_hall_id, movie_id)
-          left = @wrapper.getLeftRepository
-          right = @wrapper.getRightRepository
+          left = @wrapper.left_Repository
+          right = @wrapper.right_Repository
           if validate?(id,password, left, right, seat,cinema_hall_id, movie_id)
             payment(left,ticket_params, cinema_hall_id, seat, movie_id)
           end
@@ -27,7 +27,11 @@ module UseCase
     def payment(left, ticket_params, cinema_hall_id, seat, movie_id)
         attributes = ticket_params.clone
         attributes[:paid] = true
-        @ticket= left.create(attributes)
+        begin
+          @ticket= left.create(attributes)
+        rescue ActiveRecord::RecordNotFound => e
+          @ticket = nil
+        end
     end
 
     end

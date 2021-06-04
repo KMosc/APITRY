@@ -7,14 +7,6 @@ module Buy
             @left_Repository = left_Repository
             @right_Repository = right_Repository
     	end
-
-        def getLeftRepository
-            @left_Repository
-        end
-
-        def getRightRepository
-            @right_Repository
-        end
 	end        
 end
 

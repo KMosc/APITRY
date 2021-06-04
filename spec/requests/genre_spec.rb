@@ -1,32 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe "Genres", type: :request do
-  describe "GET /index" do
-    it "returns http success" do
-      get "/genre/index"
-      expect(response).to have_http_status(:success)
+RSpec.describe "Genres"
+  describe "Fetch genres" do
+    it 'works and return status 201' do
+      get("/ticket_desks/:id/cinema_halls/:cinema_hall_id/movies/:movie_id/genre")
+      expect(response.status).to eq(200)
     end
-  end
+end
 
-  describe "GET /show" do
-    it "returns http success" do
-      get "/genre/show"
-      expect(response).to have_http_status(:success)
+
+RSpec.describe "Genres"
+  describe "create movies" do
+    it 'works and return status 200' do
+      post("/ticket_desks/:id/cinema_halls/:cinema_hall_id/movies/:movie_id/genre", params: { genre: {  title: "aaa", description: "aaa"} } )
+      expect(response.status).to eq(200)
     end
-  end
-
-  describe "GET /create" do
-    it "returns http success" do
-      get "/genre/create"
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET /new" do
-    it "returns http success" do
-      get "/genre/new"
-      expect(response).to have_http_status(:success)
-    end
-  end
-
 end

@@ -25,19 +25,20 @@ class TicketController < ApplicationController
     left_Repository = Repository::TicketRepository.new
       right_Repository = Repository::CinemaHallRepository.new
       wrapper = Buy::Decorator.new(left_Repository, right_Repository)
-
-      if self.post_success(wrapper)
+      @buy = self.post_success(wrapper)
+      if @buy
         self.mail
         render json: ["log": "success"]
       else
-        render json: ["log": "failure"]
+        render json: ["log": "failed"], status: :unprocessable_entity
       end
     end
       
   def bookin
     repo = Repository::TicketRepository.new
-    if !repo.make_reservation(ticket_params)
-      render json: ["log": "error"]
+    @reservation = repo.make_reservation(ticket_params)
+    if !@reservation
+      render jsonapi_errors: @reservation.errors, status: :unprocessable_entity
     else 
       render json: Tickets::Representer.new(repo).single
     end

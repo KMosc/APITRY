@@ -8,7 +8,9 @@ class MoviesController < ApplicationController
 
   def show
   end
-
+  def new
+    
+  end
   def create
       repository=Repository::MovieRepository.new
       self.post_success(repository)

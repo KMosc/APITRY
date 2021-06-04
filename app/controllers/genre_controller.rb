@@ -11,7 +11,7 @@ end
 # POST /cinema_halls
 def create
   repository=Repository::GenreRepository.new
-  self.post_success(repository)
+  @genre=self.post_success(repository)
 end
 
 # DELETE /cinema_halls/1
