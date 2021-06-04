@@ -1,6 +1,8 @@
 class TicketController < ApplicationController
 
-  def index     
+  def index   
+    @link = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
+    redirect_to(root_url, :notice => 'Record not found') unless @link  
     if !params[:password].blank? 
       @tickets = Repository::TicketRepository.new.where(ticket_params)
       render json: @tickets, except: [:password, :created_at, :updated_at, :ticket_desk_id]
@@ -22,13 +24,18 @@ class TicketController < ApplicationController
   end
 
   def create
+    @link = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
+    redirect_to(root_url, :notice => 'Record not found') unless @link
     left_Repository = Repository::TicketRepository.new
       right_Repository = Repository::CinemaHallRepository.new
-      wrapper = Buy::Decorator.new(left_Repository, right_Repository)
-      @buy = self.post_success(wrapper)
-      if @buy
+      wrapper = Buy::Decorator.new(
+        Repository::TicketRepository.new, 
+        Repository::CinemaHallRepository.new
+        )
+      buy = self.post_success(wrapper)
+      if buy
         self.mail
-        render json: ["log": "success"]
+        render json: ["log": "success"], status: :unprocessable_entity
       else
         render json: ["log": "failed"], status: :unprocessable_entity
       end

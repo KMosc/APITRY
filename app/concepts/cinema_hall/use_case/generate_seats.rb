@@ -4,19 +4,26 @@ module UseCase
     module CinemaHalls 
         class GenerateSeats < UseCase::Base::Base 
             def call(id)
-                big_alphabet = ("A".."Z").to_a
                 begin
-                    @cinema_hall = repository.find_by(id) 
-                    volume =  @cinema_hall.volume
-                    seats=1.step(volume,1).to_a
-                    for i in 0..volume-1
-                          seats[i] = "#{i/10+1}#{big_alphabet[i%10]}"
-                    end
+                    cinema_hall = repository.find_by(id) 
+                    volume = cinema_hall.volume
+                    seats = cinema_matrix_representation(volume)
                 rescue ActiveRecord::RecordNotFound => e
-                    seats = []
                 end
                 return seats
             end
+
+            private
+            def cinema_matrix_representation(volume)
+                seats=(1..volume).to_a
+                seats.map.with_index do |seat, index|
+                    seats[index] = "#{index/10+1}#{alphabet[index%10]}"
+                end
+            end
+            def alphabet
+                ("A".."Z").to_a
+            end
+
         end
     end
 end

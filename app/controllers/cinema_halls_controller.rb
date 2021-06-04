@@ -17,7 +17,7 @@ class CinemaHallsController < ApplicationController
     if UseCase::CinemaHalls::Update.new(repository).call(cinema_hall_params)
       render json: ["log": "success"]
     else
-      render json: ["log": "failure"]
+      redirect_to(root_url, :notice => 'Record not found')
     end
   end
 

@@ -13,11 +13,9 @@ module Decorator
         def seats_not_taken(id,cinema_hall_id, movie_id)
           return {"empty_seats":
           (
-            UseCase::CinemaHalls::GenerateSeats.new(
-            wrapper.left_Repository
-            ).call(cinema_hall_id) - UseCase::Tickets::Taken.new(
-            wrapper.right_Repository
-          ).call(id, cinema_hall_id, movie_id)
+            left=UseCase::CinemaHalls::GenerateSeats.new(wrapper.left_Repository).call(cinema_hall_id) 
+            right=UseCase::Tickets::Taken.new(wrapper.right_Repository).call(id, cinema_hall_id, movie_id)
+            left - right
           )
           }
         end
