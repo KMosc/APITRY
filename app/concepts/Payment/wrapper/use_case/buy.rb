@@ -27,11 +27,7 @@ module UseCase
     def payment(left, ticket_params, cinema_hall_id, seat, movie_id)
         attributes = ticket_params.clone
         attributes[:paid] = true
-        begin
-          @ticket= left.create(attributes)
-        rescue ActiveRecord::RecordNotFound => e
-          @ticket = nil
-        end
+        @ticket= left.create(attributes)
     end
 
     end

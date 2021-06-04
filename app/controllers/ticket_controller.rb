@@ -1,8 +1,8 @@
 class TicketController < ApplicationController
 
   def index   
-    @link = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
-    redirect_to(root_url, :notice => 'Record not found') unless @link  
+    link = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
+    throw :abort unless link 
     if !params[:password].blank? 
       @tickets = Repository::TicketRepository.new.where(ticket_params)
       render json: @tickets, except: [:password, :created_at, :updated_at, :ticket_desk_id]
@@ -24,8 +24,8 @@ class TicketController < ApplicationController
   end
 
   def create
-    @link = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
-    redirect_to(root_url, :notice => 'Record not found') unless @link
+    link = Movie.where(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
+    throw :abort unless link 
     left_Repository = Repository::TicketRepository.new
       right_Repository = Repository::CinemaHallRepository.new
       wrapper = Buy::Decorator.new(
@@ -35,17 +35,17 @@ class TicketController < ApplicationController
       buy = self.post_success(wrapper)
       if buy
         self.mail
-        render json: ["log": "success"], status: :unprocessable_entity
+        render json: ["log": "success"]
       else
-        render json: ["log": "failed"], status: :unprocessable_entity
+        render json: ["log": "failure"]
       end
     end
       
   def bookin
     repo = Repository::TicketRepository.new
-    @reservation = repo.make_reservation(ticket_params)
-    if !@reservation
-      render jsonapi_errors: @reservation.errors, status: :unprocessable_entity
+    reservation = repo.make_reservation(ticket_params)
+    if !reservation
+      render jsonapi_errors: reservation.errors, status: :unprocessable_entity
     else 
       render json: Tickets::Representer.new(repo).single
     end

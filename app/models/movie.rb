@@ -6,6 +6,6 @@ class Movie < ApplicationRecord
   validates :movie_id, presence: true, if: :exist?
   
   def exist?
-    Movie.where(movie_id: -1).nil?
+    Movie.where(id: -1).nil?
   end
 end
