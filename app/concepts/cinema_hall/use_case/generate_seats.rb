@@ -5,8 +5,13 @@ module UseCase
         class GenerateSeats < UseCase::Base::Base 
             def call(id)
                 big_alphabet = ("A".."Z").to_a
-                @cinema_hall = repository.find_by(id)
-                volume =  @cinema_hall.read_attribute('volume')
+                begin
+                    @cinema_hall = repository.find_by(id) 
+                    volume =  @cinema_hall.read_attribute('volume')
+                rescue ActiveRecord::RecordNotFound => e
+                    @cinema_hall = nil
+                    volume = 0
+                end
                 seats=1.step(volume,1).to_a
                 for i in 0..volume-1
                       seats[i] = "#{i/10+1}#{big_alphabet[i%10]}"

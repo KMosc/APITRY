@@ -26,15 +26,13 @@ class TicketController < ApplicationController
       right_Repository = Repository::CinemaHallRepository.new
       wrapper = Buy::Decorator.new(left_Repository, right_Repository)
 
-      if Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
-        if self.post_success(wrapper)
-          self.mail
-          render json: ["log": "success"]
-        else
-          render json: ["log": "failure"]
-        end
+      if self.post_success(wrapper)
+        self.mail
+        render json: ["log": "success"]
+      else
+        render json: ["log": "failure"]
+      end
     end
-  end
       
   def bookin
     repo = Repository::TicketRepository.new
