@@ -8,7 +8,7 @@ class TicketDesksController < ApplicationController
   end
 
   def create
-    repository=Repository::TicketDeskRepository.new(TicketDesk)
+    repository=Repository::TicketDeskRepository.new()
     self.post_success(repository)
   end
 
