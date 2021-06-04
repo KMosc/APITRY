@@ -19,9 +19,9 @@ module UseCase
     private
 
     def validate?(id,password, left_Repository, right_Repository, seat, cinema_hall_id, movie_id)
-      @available_seats = UseCase::CinemaHalls::GenerateSeats.new(right_Repository).call(cinema_hall_id)
-      @hidden_seats = UseCase::Tickets::Taken.new(left_Repository).call(id, cinema_hall_id, movie_id)
-      !password.blank? && seat.in?(@available_seats) && !seat.in?(@hidden_seats)
+      available_seats = UseCase::CinemaHalls::GenerateSeats.new(right_Repository).call(cinema_hall_id)
+      hidden_seats = UseCase::Tickets::Taken.new(left_Repository).call(id, cinema_hall_id, movie_id)
+      !password.blank? && seat.in?(available_seats) && !seat.in?(hidden_seats) && hidden_seats.length > 0
     end
 
     def payment(left, ticket_params, cinema_hall_id, seat, movie_id)
