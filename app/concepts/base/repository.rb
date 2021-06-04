@@ -20,7 +20,11 @@ module Repository
           end
 
         def create(attrs)
-            adapter.create(attrs)
+            begin
+                adapter.create(attrs)
+            rescue ActiveRecord::RecordInvalid => error
+                ["Error": "NotFound"]
+            end
         end
     
         def new(attrs = nil)
