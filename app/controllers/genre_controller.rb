@@ -1,4 +1,5 @@
 class GenreController < ApplicationController
+  before_action :authenticate_user!
 
   def index
       render json: Genres::Representer.new(Genre.all).single.order(title: :asc), except: [:created_at, :updated_at]

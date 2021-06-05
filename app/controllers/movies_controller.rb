@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+  before_action :authenticate_user!
 
   def index
       link = CinemaHall.where(cinema_hall_id: params[:cinema_hall_id])

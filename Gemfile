@@ -8,7 +8,8 @@ gem 'sidekiq'
 gem "sentry-ruby"
 gem "sentry-rails"
 gem 'scout_apm'
-
+gem 'devise'
+gem 'doorkeeper'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails'
 # Use postgresql as the database for Active Record
