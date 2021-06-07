@@ -26,9 +26,9 @@ while (i<genres.size)
 
 end
 i = 0
+
 while (i<volumes.size)
     @cinema=CinemaHall.create(
-        id: i,
         volume: volumes[i]
         )
     @cinema.save!

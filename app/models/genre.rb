@@ -1,8 +1,8 @@
 class Genre < ApplicationRecord
     validates :id, presence: true, if: :exist?
-    validates :id, numericality: { only_integer: true }
+    validates :genre_id, numericality: { only_integer: true }
 
     def exist?
-        Genre.where(id: -1).nil?
+        Genre.where(genre_id: -1).nil?
     end
 end

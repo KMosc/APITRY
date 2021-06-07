@@ -1,5 +1,4 @@
 class TicketController < ApplicationController
-  before_action :authenticate_user!
 
   def index   
     link = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
