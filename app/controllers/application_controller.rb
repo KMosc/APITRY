@@ -10,13 +10,6 @@ class ApplicationController < ActionController::API
   end
 
   def employer?
-    employers = [
-    "employer1@montecinema.com", 
-    "employer2@montecinema.com", 
-    "employer3@montecinema.com",
-    "employer4@montecinema.com",
-    "employer5@montecinema.com",
-  ]
-    @current_user.email.in?(employers)
+    @current_user.admin.equal?(true)
   end
 end
