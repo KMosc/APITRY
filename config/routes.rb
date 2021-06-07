@@ -12,28 +12,18 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'  
 
   #resources :ticket_desks do
+  resources :movies, only: %i[index]
 
-	 # resources :cinema_halls do
-     # resources :movies do
-      #  resources :genre
-       # resources :ticket
-      #end
-	  #end
-#end
-resources :ticket_desks do
-  resources :cinema_halls do
-    resources :movies do
-
-      resources :ticket, only: %i[index]
-      resources :genre 
-    end
+  resources :cinema_halls, only: %i[index] do
+    resources :movies, only: %i[index]
   end
-end
-scope 'ticket' do
-  post "ticket", to: 'ticket#create', as: 'ticket_create'
-  post "ticket", to: 'ticket#bookin', as: 'ticket_bookin'
+  resources :movies, only: %i[index] do
 
-end
+    resources :ticket, only: %i[create]
+    resources :ticket, only: %i[index]
+
+    resources :genre 
+  end
 
 end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

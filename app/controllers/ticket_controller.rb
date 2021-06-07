@@ -1,18 +1,21 @@
 class TicketController < ApplicationController
-  before_action :authenticate_user!
+
 
   def index   
-    link = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
-    throw :abort unless link 
-    if !params[:password].blank? 
+    @link = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
+    throw :abort unless @link 
+    if !params[:receiver].blank? 
       @tickets = Repository::TicketRepository.new.where(ticket_params)
-      render json: @tickets, except: [:password, :created_at, :updated_at, :ticket_desk_id]
+      render json: @tickets, except: [:receiver, :created_at, :updated_at, :ticket_desk_id]
     else
       render json: Decorator::Buy::Representer.new(
         Buy::Decorator.new(
-          Repository::CinemaHallRepository.new, Repository::TicketRepository.new
+          Repository::CinemaHallRepository.new, 
+          Repository::TicketRepository.new
           )
-        ).seats_not_taken(params[:id], params[:cinema_hall_id], params[:movie_id])
+        ).seats_not_taken(
+          params
+          )
     end
   end
 
@@ -25,22 +28,22 @@ class TicketController < ApplicationController
   end
 
   def create
-    link = Movie.where(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
-    throw :abort unless link 
-    left_Repository = Repository::TicketRepository.new
-      right_Repository = Repository::CinemaHallRepository.new
-      wrapper = Buy::Decorator.new(
+    @link = Movie.where(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
+    throw :abort unless @link 
+    @left_Repository = Repository::TicketRepository.new
+    @right_Repository = Repository::CinemaHallRepository.new
+    @wrapper = Buy::Decorator.new(
         Repository::TicketRepository.new, 
         Repository::CinemaHallRepository.new
         )
-      buy = self.post_success(wrapper)
-      if buy
-        self.mail
-        render json: ["log": "success"]
-      else
-        render json: ["log": "failure"]
-      end
+    buy = self.post_success(@wrapper)
+    if buy
+      self.mail
+      render json: ["log": "success"]
+    else
+      render json: ["log": "failure"]
     end
+  end
       
   def bookin
     repo = Repository::TicketRepository.new
@@ -60,7 +63,7 @@ private
 
     def post_success(wrapper)
       usecase =UseCase::Decorator::Buy.new(wrapper)
-      usecase.call(params[:id], params[:password], ticket_params, params[:seat], params[:cinema_hall_id], params[:movie_id])
+      usecase.call(params[:id], params[:password], ticket_params)
     end
 
     def ticket_params

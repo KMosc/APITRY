@@ -10,11 +10,11 @@ module Decorator
         end
         
     
-        def seats_not_taken(id,cinema_hall_id, movie_id)
+        def seats_not_taken(params)
           return {"empty_seats":
           (
-            left=UseCase::CinemaHalls::GenerateSeats.new(wrapper.left_Repository).call(cinema_hall_id) 
-            right=UseCase::Tickets::Taken.new(wrapper.right_Repository).call(id, cinema_hall_id, movie_id)
+            left=UseCase::CinemaHalls::GenerateSeats.new(wrapper.left_Repository).call(params[:cinema_hall_id]) 
+            right=UseCase::Tickets::Taken.new(wrapper.right_Repository).call(params)
             left - right
           )
           }

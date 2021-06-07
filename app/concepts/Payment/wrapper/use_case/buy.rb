@@ -8,20 +8,19 @@ module UseCase
           @wrapper = wrapper
         end
 
-        def call(id,password, ticket_params, seat, cinema_hall_id, movie_id)
+        def call(id,password, ticket_params)
           left = @wrapper.left_Repository
           right = @wrapper.right_Repository
-          if validate?(id,password, left, right, seat,cinema_hall_id, movie_id)
-            payment(left,ticket_params, cinema_hall_id, seat, movie_id)
+          if validate?(id,ticket_params[:password], left, right, ticket_params[:seat], ticket_params)
+            payment(left, ticket_params, ticket_params[:cinema_hall_id], ticket_params[:seat], ticket_params[:movie_id])
           end
         end
     
     private
 
-    def validate?(id,password, left_Repository, right_Repository, seat, cinema_hall_id, movie_id)
-      available_seats = UseCase::CinemaHalls::GenerateSeats.new(right_Repository).call(cinema_hall_id)
-      hidden_seats = UseCase::Tickets::Taken.new(left_Repository).call(id, cinema_hall_id, movie_id)
-      !password.blank? && seat.in?(available_seats) && !seat.in?(hidden_seats) && hidden_seats.length > 0
+    def validate?(id,password, left_Repository, right_Repository, seat, params)
+      available_seats = UseCase::CinemaHalls::GenerateSeats.new(right_Repository).call(params[:cinema_hall_id]) - UseCase::Tickets::Taken.new(left_Repository).call(params)
+      !password.blank? && seat.in?(available_seats) && available_seats.count > 0
     end
 
     def payment(left, ticket_params, cinema_hall_id, seat, movie_id)
@@ -36,4 +35,3 @@ end
 
       
 
-  

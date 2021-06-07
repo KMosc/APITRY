@@ -7,7 +7,8 @@ module UseCase
                 begin
                     cinema_hall = repository.find_by(id) 
                     volume = cinema_hall.volume
-                    seats = cinema_matrix_representation(volume)
+                    seats = self.cinema_matrix_representation(volume)
+
                 rescue ActiveRecord::RecordNotFound => e
                 end
                 return seats
@@ -19,6 +20,7 @@ module UseCase
                 seats.map.with_index do |seat, index|
                     seats[index] = "#{index/10+1}#{alphabet[index%10]}"
                 end
+                seats
             end
             def alphabet
                 ("A".."Z").to_a
