@@ -8,8 +8,12 @@ class TicketDesksController < ApplicationController
   end
 
   def create
-    repository=Repository::TicketDeskRepository.new()
-    self.post_success(repository)
+    if employer?
+      repository=Repository::TicketDeskRepository.new()
+      self.post_success(repository)
+    else
+      render json: ["error": "You are not employee"]
+    end
   end
 
   private

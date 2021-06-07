@@ -1,5 +1,6 @@
 class CinemaHallsController < ApplicationController
-  
+  before_action :authenticate_user!
+
   def index
       render json: CinemaHalls::Representer.new(CinemaHall.all).single.order(volume: :asc) , except: [:created_at, :updated_at]
   end
@@ -8,16 +9,24 @@ class CinemaHallsController < ApplicationController
   end
 
   def create
-    repository=Repository::CinemaHallRepository.new
-    post_success(repository) 
+    if employer?
+      repository=Repository::CinemaHallRepository.new
+      post_success(repository) 
+    else
+      render json: ["error": "You are not employee"]
+    end
   end
 
   def update
-    repository=Repository::CinemaHallRepository.new
-    if UseCase::CinemaHalls::Update.new(repository).call(cinema_hall_params)
-      render json: ["log": "success"]
+    if employer?
+      repository=Repository::CinemaHallRepository.new
+      if UseCase::CinemaHalls::Update.new(repository).call(cinema_hall_params)
+        render json: ["log": "success"]
+      else
+        throw(:abort)
+      end
     else
-      redirect_to(root_url, :notice => 'Record not found')
+      render json: ["error": "You are not employee"]
     end
   end
 

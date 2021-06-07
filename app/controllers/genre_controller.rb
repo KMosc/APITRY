@@ -1,4 +1,5 @@
 class GenreController < ApplicationController
+  before_action :authenticate_user!
 
   def index
       render json: Genres::Representer.new(Genre.all).single.order(title: :asc), except: [:created_at, :updated_at]
@@ -10,8 +11,12 @@ end
 
 # POST /cinema_halls
 def create
-  repository=Repository::GenreRepository.new
-  @genre=self.post_success(repository)
+  if employer?
+    repository=Repository::GenreRepository.new
+    @genre=self.post_success(repository)
+  else
+    render json: ["error": "You are not employee"]
+  end
 end
 
 # DELETE /cinema_halls/1

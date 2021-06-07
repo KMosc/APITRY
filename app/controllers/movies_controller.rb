@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+  before_action :authenticate_user!
 
   def index
       link = CinemaHall.where(cinema_hall_id: params[:cinema_hall_id])
@@ -16,8 +17,12 @@ class MoviesController < ApplicationController
   def create
       link = CinemaHall.find_by(cinema_hall_id: params[:cinema_hall_id])
       throw :abort unless link
-      repository=Repository::MovieRepository.new
-      self.post_success(repository)
+      if employer?
+        repository=Repository::MovieRepository.new
+        self.post_success(repository)
+      else
+        render json: ["error": "You are not employee"]
+      end
   end
 
   def destroy

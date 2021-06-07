@@ -1,8 +1,12 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+  use_doorkeeper do
+    skip_controllers :authorizations, :applications, :authorized_applications
+  end
+  resources :users, only: %i[create]
+  root :to => 'ticket_desks#index'
 
   mount Sidekiq::Web => '/sidekiq'  
-  root :to => 'ticket_desks#index'
 
   #resources :ticket_desks do
 
@@ -13,10 +17,14 @@ Rails.application.routes.draw do
       #end
 	  #end
 #end
-resources :cinema_halls
-resources :ticket
-resources :genre do
-  resources :movies
+resources :ticket_desks do
+  resources :cinema_halls do
+    resources :movies do
+
+      resources :ticket, only: %i[index]
+      resources :genre 
+    end
+  end
 end
 scope 'ticket' do
   post "ticket", to: 'ticket#create', as: 'ticket_create'
