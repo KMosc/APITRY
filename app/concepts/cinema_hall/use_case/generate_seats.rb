@@ -7,7 +7,7 @@ module UseCase
                 begin
                     cinema_hall = repository.find_by(id) 
                     volume = cinema_hall.volume
-                    seats = self.cinema_matrix_representation(volume)
+                    seats = cinema_matrix_representation(volume)
 
                 rescue ActiveRecord::RecordNotFound => e
                 end
