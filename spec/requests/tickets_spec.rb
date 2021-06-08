@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Ticket requests" do
-  describe "GET /tickets" do
+  describe "operation on/tickets" do
     let!(:genre) { 
       Genre.create(title: "test", description: "test") 
     }
@@ -15,8 +15,11 @@ RSpec.describe "Ticket requests" do
     it "Fetch all empty seats" do
       get("/movies/#{movie.id}/ticket", params: {cinema_hall_id: cinema_hall.id})
       expect(response.status).to eq(200)
-      byebug
+    end
 
+    it "Create the tickets" do
+      post("/movies/#{movie.id}/ticket", params: {password: "email@email.com", seat: "1B", movie_id: movie.id, cinema_hall_id: cinema_hall.id})
+      expect(response.status).to eq(200)
     end
   end
 

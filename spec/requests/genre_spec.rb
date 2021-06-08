@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe "Genres"
-  describe "Fetch genres" do
-    it 'works and return status 201' do
-      get("/ticket_desks/:id/cinema_halls/:cinema_hall_id/movies/:movie_id/genre")
+RSpec.describe "Movies requests" do
+  describe "GET /Genres" do
+    it "Fetch all genre" do
+      get("/genre")
       expect(response.status).to eq(200)
     end
-end
+  end
+  describe "POST /genres" do
 
-
-RSpec.describe "Genres"
-  describe "create movies" do
-    it 'works and return status 200' do
-      post("/ticket_desks/:id/cinema_halls/:cinema_hall_id/movies/:movie_id/genre", params: { genre: {  title: "aaa", description: "aaa"} } )
+    it "Create the movies" do
+      post("/genre", params: {title: "test", description: "test"})
       expect(response.status).to eq(200)
     end
+  end
+
 end

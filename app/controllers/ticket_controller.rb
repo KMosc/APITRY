@@ -2,8 +2,8 @@ class TicketController < ApplicationController
 
 
   def index   
-    #@link = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
-    #throw :abort unless @link 
+    @link = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
+    throw :abort unless @link 
     if !params[:receiver].blank? 
       @tickets = Repository::TicketRepository.new.where(ticket_params)
       render json: @tickets, except: [:receiver, :created_at, :updated_at, :ticket_desk_id]
@@ -28,6 +28,8 @@ class TicketController < ApplicationController
   end
 
   def create
+    @link = Movie.where(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
+    throw :abort unless @link 
     @left_Repository = Repository::TicketRepository.new
     @right_Repository = Repository::CinemaHallRepository.new
     @wrapper = Buy::Decorator.new(
@@ -70,7 +72,7 @@ private
 
     def mail
       TicketMailer.with(
-        password: current_user.email, 
+        password: params[:password], 
         cinema_hall_id: params[:cinema_hall_id], 
         movie_id: params[:movie_id], 
         seat: params[:seat] 

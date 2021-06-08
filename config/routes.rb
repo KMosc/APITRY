@@ -14,9 +14,11 @@ Rails.application.routes.draw do
   #resources :ticket_desks do
   resources :movies, only: %i[index]
 
-  resources :cinema_halls, only: %i[index] do
-    resources :movies, only: %i[index]
+  resources :cinema_halls do
+    resources :movies
   end
+  resources :genre 
+
   resources :movies do
 
     resources :ticket, only: %i[create]

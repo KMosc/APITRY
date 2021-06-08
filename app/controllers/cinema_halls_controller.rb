@@ -9,12 +9,12 @@ class CinemaHallsController < ApplicationController
   end
 
   def create
-    if employer?
-      repository=Repository::CinemaHallRepository.new
-      post_success(repository) 
-    else
-      render json: ["error": "You are not employee"]
-    end
+    #if employer?
+    repository=Repository::CinemaHallRepository.new
+    post_success(repository) 
+    #else
+    #render json: ["error": "You are not employee"]
+    #end
   end
 
   def update
@@ -38,7 +38,7 @@ class CinemaHallsController < ApplicationController
   private
 
     def post_success(repository)
-      if UseCase::Movies::Create.new(repository).new(cinema_hall_params)
+      if UseCase::Movies::Create.new(repository).call(cinema_hall_params)
         render json: ["log": "success"]
       else
         render json: ["log": "failure"]
