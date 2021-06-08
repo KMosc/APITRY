@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :movies
   end
   resources :genre 
-
+  resources :ticket_desks
   resources :movies do
 
     resources :ticket, only: %i[create]

@@ -4,7 +4,7 @@ class MoviesController < ApplicationController
       #link = CinemaHall.where(cinema_hall_id: params[:cinema_hall_id])
       #throw(:abort) unless link 
       if (params.has_key?(:cinema_hall_id))
-        movie =Movies::Representer.new(Movie.all).single.where(
+        movie = Movie.where(
           cinema_hall_id: params[:cinema_hall_id]
         ).order(title: :asc)
       else
@@ -27,11 +27,6 @@ class MoviesController < ApplicationController
       #end
   end
 
-  def destroy
-    repository=Repository::MovieRepository.new
-    UseCase::Movies::Delete.new.call(id: params[:id])
-  end
-
   private
   def movie_params
     params.permit(:id, :title, :description, :age_restriction, :starts_at, :ends_at, :genre_id, :cinema_hall_id)
@@ -41,8 +36,6 @@ class MoviesController < ApplicationController
     def post_success(repository)
       if UseCase::Movies::Create.new(repository).call(movie_params)
         render json: ["log": "success"]
-      else
-        render json: ["log": "failure"]
       end
     end
     
