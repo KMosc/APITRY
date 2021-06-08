@@ -15,7 +15,7 @@ module Decorator
           (
             left=UseCase::CinemaHalls::GenerateSeats.new(wrapper.left_Repository).call(params[:cinema_hall_id]) 
             right=UseCase::Tickets::Taken.new(wrapper.right_Repository).call(params)
-            left - right
+            left-right
           )
           }
         end

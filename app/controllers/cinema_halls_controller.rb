@@ -1,5 +1,5 @@
 class CinemaHallsController < ApplicationController
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
 
   def index
       render json: CinemaHall.all.order(volume: :asc) , except: [:created_at, :updated_at]

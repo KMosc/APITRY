@@ -1,29 +1,23 @@
 require 'rails_helper'
 
-RSpec.describe "Tickets"
-  describe "Fetch tickets" do
-    it 'works and return status 201' do
-      get("/ticket_desks/:id/cinema_halls/:cinema_hall_id/movies/:movie_id/ticket")
+RSpec.describe "Ticket requests" do
+  describe "GET /tickets" do
+    let!(:genre) { 
+      Genre.create(title: "test", description: "test") 
+    }
+    let!(:cinema_hall) { 
+      CinemaHall.create!(volume: 200) 
+    }
+    let!(:movie) { 
+      Movie.create!(title: "test", description: "test", age_restriction: 16, starts_at: "18:00", ends_at: "18:00", cinema_hall_id: cinema_hall.id, genre_id: genre.id)
+    }
+    
+    it "Fetch all empty seats" do
+      get("/movies/#{movie.id}/ticket", params: {cinema_hall_id: cinema_hall.id})
       expect(response.status).to eq(200)
-    end
-end
+      byebug
 
-
-RSpec.describe "Tickets"
-  describe "create tickets" do
-    it 'works and return status 201' do
-      post("/ticket_desks/:id/cinema_halls/:cinema_hall_id/movies/:movie_id/ticket", 
-      params: { 
-          movie: {  
-              pad: "true", 
-              password: "XD", 
-              seat: "1B", 
-              ticket_desk_id: :ticket_desk_id, 
-              cinema_hall_id: :cinema_hall_id, 
-              movie_id: :movie_id
-              } 
-            } 
-        )
-      expect(response.status).to eq(422)
     end
+  end
+
 end

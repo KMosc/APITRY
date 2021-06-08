@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :doorkeeper_authorize!, only: %i[create]
+  #skip_before_action :doorkeeper_authorize!, only: %i[create]
 
   def create
     user = User.new(email: user_params[:email], password: user_params[:password], admin: false)

@@ -1,8 +1,8 @@
 class MoviesController < ApplicationController
 
   def index
-      link = CinemaHall.where(cinema_hall_id: params[:cinema_hall_id])
-      throw(:abort) unless link 
+      #link = CinemaHall.where(cinema_hall_id: params[:cinema_hall_id])
+      #throw(:abort) unless link 
       render json: Movies::Representer.new(Movie.all).single.where(
         cinema_hall_id: params[:cinema_hall_id]
       ).order(title: :asc), except: [:created_at, :updated_at]
@@ -14,14 +14,12 @@ class MoviesController < ApplicationController
     
   end
   def create
-      link = CinemaHall.find_by(cinema_hall_id: params[:cinema_hall_id])
-      throw :abort unless link
-      if employer?
-        repository=Repository::MovieRepository.new
-        self.post_success(repository)
-      else
-        render json: ["error": "You are not employee"]
-      end
+      #if employer?
+      repository=Repository::MovieRepository.new
+      self.post_success(repository)
+      #else
+       # render json: ["error": "You are not employee"]
+      #end
   end
 
   def destroy
