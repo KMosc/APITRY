@@ -5,13 +5,13 @@ class MoviesController < ApplicationController
       #link = CinemaHall.where(cinema_hall_id: params[:cinema_hall_id])
       #throw(:abort) unless link 
       if (params.has_key?(:cinema_hall_id))
-        movie = Movie.where(
+        movies = Movie.where(
           cinema_hall_id: params[:cinema_hall_id]
         ).order(title: :asc)
       else
-        movie = Movie.all
+        movies = Movie.all
       end
-      render json: movie
+      render json: movies
   end
 
   def show
