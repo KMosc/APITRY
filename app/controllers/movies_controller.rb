@@ -3,9 +3,14 @@ class MoviesController < ApplicationController
   def index
       #link = CinemaHall.where(cinema_hall_id: params[:cinema_hall_id])
       #throw(:abort) unless link 
-      render json: Movies::Representer.new(Movie.all).single.where(
-        cinema_hall_id: params[:cinema_hall_id]
-      ).order(title: :asc), except: [:created_at, :updated_at]
+      if (params.has_key?(:cinema_hall_id))
+        movie =Movies::Representer.new(Movie.all).single.where(
+          cinema_hall_id: params[:cinema_hall_id]
+        ).order(title: :asc)
+      else
+        movie = Movie.all
+      end
+      render json: movie
   end
 
   def show
