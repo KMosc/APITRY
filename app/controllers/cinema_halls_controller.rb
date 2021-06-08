@@ -1,5 +1,5 @@
 class CinemaHallsController < ApplicationController
-  #before_action :authenticate_user!
+  skip_before_action :doorkeeper_authorize!, only: %i[index show]
 
   def index
       render json: CinemaHall.all.order(volume: :asc) , except: [:created_at, :updated_at]
@@ -15,19 +15,6 @@ class CinemaHallsController < ApplicationController
     #else
     #render json: ["error": "You are not employee"]
     #end
-  end
-
-  def update
-    if employer?
-      repository=Repository::CinemaHallRepository.new
-      if UseCase::CinemaHalls::Update.new(repository).call(cinema_hall_params)
-        render json: ["log": "success"]
-      else
-        throw(:abort)
-      end
-    else
-      render json: ["error": "You are not employee"]
-    end
   end
 
   def destroy

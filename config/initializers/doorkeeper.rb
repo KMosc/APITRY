@@ -27,6 +27,4 @@ Doorkeeper.configure do
       end
 
     use_refresh_token
-    #Doorkeeper::OAuth::TokenResponse.send :prepend, CustomTokenResponse
-    #Doorkeeper::OAuth::ErrorResponse.send :prepend, CustomTokenErrorResponse
 end

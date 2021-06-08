@@ -1,5 +1,5 @@
 class GenreController < ApplicationController
-  
+  skip_before_action :doorkeeper_authorize!, only: %i[index show]
 
   def index
       render json: Genres::Representer.new(Genre.all).single.order(title: :asc), except: [:created_at, :updated_at]
@@ -29,8 +29,6 @@ private
   def post_success(repository)
     if UseCase::Genres::Create.new(repository).call(genre_params)
       render json: ["log": "success"]
-    else
-      render json: ["log": "failure"]
     end
   end
 

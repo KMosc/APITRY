@@ -1,12 +1,12 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
-  #use_doorkeeper do
-  #  skip_controllers :authorizations, :applications, :authorized_applications
-  #end
+  use_doorkeeper do
+    skip_controllers :authorizations, :applications, :authorized_applications
+  end
   resources :users, only: %i[create]
-  #devise_for :users, controllers: {
-  #  registrations: 'users/registrations',
-#}, skip: [:sessions, :password] 
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+  }, skip: [:sessions, :password] 
   root :to => 'ticket_desks#index'
 
   mount Sidekiq::Web => '/sidekiq'  

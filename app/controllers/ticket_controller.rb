@@ -1,4 +1,5 @@
 class TicketController < ApplicationController
+  skip_before_action :doorkeeper_authorize!, only: %i[index show]
 
 
   def index   

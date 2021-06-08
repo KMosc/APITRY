@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+  skip_before_action :doorkeeper_authorize!, only: %i[index show]
 
   def index
       #link = CinemaHall.where(cinema_hall_id: params[:cinema_hall_id])

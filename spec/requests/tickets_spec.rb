@@ -11,15 +11,24 @@ RSpec.describe "Ticket requests" do
     let!(:movie) { 
       Movie.create!(title: "test", description: "test", age_restriction: 16, starts_at: "18:00", ends_at: "18:00", cinema_hall_id: cinema_hall.id, genre_id: genre.id)
     }
-    
+
+  let!(:doorkeeper) { 
+    Doorkeeper::Application.create!(name: "Android client", redirect_uri: "", scopes: "")    
+  }
+  let!(:user) { 
+      User.create!(email: "test@example.com", password: "testxtest")    
+  }
+  let!(:token) { 
+      Doorkeeper::AccessToken.create! :application_id => doorkeeper.id, :resource_owner_id => user.id 
+  }    
     it "Fetch all empty seats" do
-      get("/movies/#{movie.id}/ticket", params: {cinema_hall_id: cinema_hall.id})
+      get("/movies/#{movie.id}/ticket", params: {Authentication: token.token, email: "test@example.com", password: "testxtest", client_id: doorkeeper.uid, cinema_hall_id: cinema_hall.id})
       expect(response.status).to eq(200)
     end
 
     it "Create the tickets" do
       post("/movies/#{movie.id}/ticket", params: {password: "email@email.com", seat: "1B", movie_id: movie.id, cinema_hall_id: cinema_hall.id})
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(401)
     end
   end
 
