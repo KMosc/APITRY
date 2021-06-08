@@ -13,7 +13,6 @@ RSpec.describe "Ticket Desks"
     }    
     it 'works and return status 200' do
       get("/ticket_desks", params: { email: "test@example.com", password: "testxtest", client_id: doorkeeper.uid})
-      expect(response.status).to eq(401)
+      expect(response.status).to eq(200)
     end
 end
-
