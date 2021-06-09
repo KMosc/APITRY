@@ -18,10 +18,6 @@ RSpec.describe "User requests" do
       expect(response.status).to eq(422)
     end
 
-    it "Log in user" do
-        get("/movies")
-        expect(response.status).to eq(200)
-      end
     
   end
 
