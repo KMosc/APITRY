@@ -12,7 +12,7 @@ RSpec.describe "Ticket Desks"
         Doorkeeper::AccessToken.create! :application_id => doorkeeper.id, :resource_owner_id => user.id 
     }    
     it 'works and return status 200' do
-      get("/ticket_desks", params: { email: "test@example.com", password: "testxtest", client_id: doorkeeper.uid})
+      get("/ticket_desks")
       expect(response.status).to eq(200)
     end
 end

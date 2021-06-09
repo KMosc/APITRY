@@ -12,7 +12,7 @@ RSpec.describe "Movies requests" do
   }  
   describe "GET /cinema_halls" do
     it "Fetch all cinema_halls" do
-      get("/cinema_halls", params: {email: "test@example.com", password: "testxtest", client_id: doorkeeper.uid})
+      get("/cinema_halls")
       expect(response.status).to eq(200)
     end
   end

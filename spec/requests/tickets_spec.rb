@@ -22,7 +22,7 @@ RSpec.describe "Ticket requests" do
       Doorkeeper::AccessToken.create! :application_id => doorkeeper.id, :resource_owner_id => user.id 
   }    
     it "Fetch all empty seats" do
-      get("/movies/#{movie.id}/ticket", params: {Authentication: token.token, email: "test@example.com", password: "testxtest", client_id: doorkeeper.uid, cinema_hall_id: cinema_hall.id})
+      get("/movies/#{movie.id}/ticket", params: {cinema_hall_id: cinema_hall.id})
       expect(response.status).to eq(200)
     end
 

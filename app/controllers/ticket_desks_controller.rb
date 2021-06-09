@@ -1,4 +1,6 @@
 class TicketDesksController < ApplicationController
+  skip_before_action :doorkeeper_authorize!, only: %i[index show]
+
   # GET /ticket_desks
   def index
       render json: TicketDesks::Representer.new(TicketDesk.all).single.order(name: :asc) , except: [:created_at, :updated_at]

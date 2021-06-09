@@ -19,7 +19,7 @@ RSpec.describe "User requests" do
     end
 
     it "Log in user" do
-        get("/movies", params: {Authentication: token.token, email: "test@example.com", password: "testxtest", client_id: doorkeeper.uid})
+        get("/movies")
         expect(response.status).to eq(200)
       end
     
