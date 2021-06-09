@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'faker'
 
 RSpec.describe "Ticket requests" do
   describe "operation on/tickets" do
@@ -16,7 +17,7 @@ RSpec.describe "Ticket requests" do
     Doorkeeper::Application.create!(name: "Android client", redirect_uri: "", scopes: "")    
   }
   let!(:user) { 
-      User.create!(email: "test@example.com", password: "testxtest")    
+    User.create!(email: Faker::Internet.email, password: Faker::Internet.password(min_length: 8))    
   }
   let!(:token) { 
       Doorkeeper::AccessToken.create! :application_id => doorkeeper.id, :resource_owner_id => user.id 
@@ -27,7 +28,7 @@ RSpec.describe "Ticket requests" do
     end
 
     it "Create the tickets" do
-      post("/movies/#{movie.id}/ticket", params: {password: "email@email.com", seat: "1B", movie_id: movie.id, cinema_hall_id: cinema_hall.id})
+      post("/movies/#{movie.id}/ticket", params: {password: user.password, seat: "1B", movie_id: movie.id, cinema_hall_id: cinema_hall.id})
       expect(response.status).to eq(401)
     end
   end
