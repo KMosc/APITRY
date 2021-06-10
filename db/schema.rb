@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_07_105903) do
+ActiveRecord::Schema.define(version: 2021_06_10_152441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,17 @@ ActiveRecord::Schema.define(version: 2021_06_07_105903) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
+  create_table "payment_histories", force: :cascade do |t|
+    t.string "email"
+    t.string "seat"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.bigint "movie_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["movie_id"], name: "index_payment_histories_on_movie_id"
+  end
+
   create_table "ticket_desks", force: :cascade do |t|
     t.string "name"
     t.boolean "automated"
@@ -107,6 +118,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_105903) do
   add_foreign_key "movies", "cinema_halls"
   add_foreign_key "movies", "genres"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "payment_histories", "movies"
   add_foreign_key "tickets", "cinema_halls"
   add_foreign_key "tickets", "movies"
   add_foreign_key "tickets", "ticket_desks"
