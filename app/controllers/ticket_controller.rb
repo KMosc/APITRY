@@ -44,7 +44,7 @@ class TicketController < ApplicationController
       self.mail
       nump_minute = movie[:starts_at].hour*60+movie[:starts_at].min - DateTime.now.hour*60- DateTime.now.min
 
-      TicketsCleanupJob.set(wait: nump_minute.hours).perform_later(params[:password], movie)
+      TicketsCleanupJob.set(wait: nump_minute.minutes).perform_later(params[:password], movie)
       render json: ["log": "success"]
     else
       render json: ["log": "failure"]
