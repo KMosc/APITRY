@@ -4,3 +4,4 @@
 :timeout: 30
 :queues:
    - ticket_controller_create
+   - tickets_cleanup_job

@@ -1,3 +1,5 @@
+require 'date'
+
 class TicketController < ApplicationController
   skip_before_action :doorkeeper_authorize!, only: %i[index show]
 
@@ -29,8 +31,8 @@ class TicketController < ApplicationController
   end
 
   def create
-    @link = Movie.where(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
-    throw :abort unless @link 
+    movie = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
+    throw :abort unless movie 
     @left_Repository = Repository::TicketRepository.new
     @right_Repository = Repository::CinemaHallRepository.new
     @wrapper = Buy::Decorator.new(
@@ -40,6 +42,8 @@ class TicketController < ApplicationController
     buy = self.post_success(@wrapper)
     if buy
       self.mail
+      nump_hour = movie[:starts_at].hour - DateTime.now.hour
+      TicketsCleanupJob.set(wait: nump_hour.hours ).perform_later(params[:password], params[:movie_id])
       render json: ["log": "success"]
     else
       render json: ["log": "failure"]

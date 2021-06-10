@@ -24,6 +24,8 @@ module Try
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
+    config.active_job.queue_name_prefix = Rails.env
+    config.active_job.queue_name_delimiter = '.'
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -39,5 +41,11 @@ module Try
     config.active_job.queue_adapter = :sidekiq
     config.api_only = true
     config.autoloader = :classic
+    config.session_store :cookie_store, key: '_interslice_session'
+
+# Required for all session management (regardless of session_store)
+    config.middleware.use ActionDispatch::Cookies
+
+    config.middleware.use config.session_store, config.session_options
   end
 end

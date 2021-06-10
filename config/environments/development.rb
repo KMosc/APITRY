@@ -1,6 +1,9 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  config.active_job.queue_adapter = :sidekiq
+
+
   # Settings specified here will take precedence over those in config/application.rb.
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
@@ -59,6 +62,10 @@ Rails.application.configure do
     authentication: :plain,
     enable_starttls_auto: true
   }
+  Sidekiq.configure_server do |config|
+    config.average_scheduled_poll_interval = 2
+  end
+  
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

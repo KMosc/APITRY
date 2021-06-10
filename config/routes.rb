@@ -1,6 +1,6 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
-  use_doorkeeper do
+   use_doorkeeper do
     skip_controllers :authorizations, :applications, :authorized_applications
   end
   resources :users, only: %i[create]
@@ -9,8 +9,7 @@ Rails.application.routes.draw do
   }, skip: [:sessions, :password] 
   root :to => 'ticket_desks#index'
 
-  mount Sidekiq::Web => '/sidekiq'  
-
+  mount Sidekiq::Web => "/sidekiq"
   #resources :ticket_desks do
   resources :movies, only: %i[index]
 
