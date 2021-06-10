@@ -41,7 +41,7 @@ class TicketController < ApplicationController
         )
     buy = self.post_success(@wrapper)
     if buy
-      if (params[:paid] != true)
+      if (params[:paid].eql?(true))
         if DateTime.now.hour*60- DateTime.now.min > movie[:starts_at].hour*60+movie[:starts_at].min
           nump_minute = 24.hour*60 - DateTime.now.hour*60- DateTime.now.min + movie[:starts_at].hour*60+movie[:starts_at].min-30.minutes
         else
