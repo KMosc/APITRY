@@ -41,25 +41,22 @@ class TicketController < ApplicationController
         )
     buy = self.post_success(@wrapper)
     if buy
-      self.mail
-      nump_minute = movie[:starts_at].hour*60+movie[:starts_at].min - DateTime.now.hour*60- DateTime.now.min
-
-      TicketsCleanupJob.set(wait: nump_minute.minutes).perform_later(params[:password], movie)
+      if (params[:paid] != true)
+        if DateTime.now.hour*60- DateTime.now.min > movie[:starts_at].hour*60+movie[:starts_at].min
+          nump_minute = 24.hour*60 - DateTime.now.hour*60- DateTime.now.min + movie[:starts_at].hour*60+movie[:starts_at].min-30.minutes
+        else
+          nump_minute = movie[:starts_at].hour*60+movie[:starts_at].min - DateTime.now.hour*60- DateTime.now.min
+        end
+        TicketsCleanupJob.set(wait: nump_minute.minutes).perform_later(nump_minute,ticket_params, params[:password], movie, params[:seat])
+      else
+        self.send_ticket_mail
+      end
       render json: ["log": "success"]
     else
       render json: ["log": "failure"]
     end
   end
-      
-  def bookin
-    repo = Repository::TicketRepository.new
-    reservation = repo.make_reservation(ticket_params)
-    if !reservation
-      render jsonapi_errors: reservation.errors, status: :unprocessable_entity
-    else 
-      render json: Tickets::Representer.new(repo).single
-    end
-  end
+    
 
 private
 
@@ -74,9 +71,10 @@ private
 
     def ticket_params
       params.permit(:id, :paid, :password, :seat, :ticket_desk_id, :cinema_hall_id, :movie_id)
+       
     end    
 
-    def mail
+    def send_ticket_mail
       TicketMailer.with(
         password: params[:password], 
         cinema_hall_id: params[:cinema_hall_id], 

@@ -25,7 +25,6 @@ module UseCase
 
     def payment(left, ticket_params, cinema_hall_id, seat, movie_id)
         attributes = ticket_params.clone
-        attributes[:paid] = true
         @ticket= left.create(attributes)
     end
 
