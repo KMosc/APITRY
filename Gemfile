@@ -10,6 +10,7 @@ gem "sentry-rails"
 gem 'scout_apm'
 gem 'devise'
 gem 'doorkeeper'
+gem 'bundle-audit'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails'
 # Use postgresql as the database for Active Record
@@ -33,6 +34,9 @@ gem 'jwt'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 gem 'simplecov', require: false, group: :test
+group :development do
+  gem 'brakeman'
+end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
