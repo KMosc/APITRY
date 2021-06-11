@@ -5,8 +5,8 @@ class TicketController < ApplicationController
 
 
   def index   
-    @link = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
-    raise(ActionController::InvalidAuthenticityToken) unless @link 
+    movie = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
+    raise(ActionController::InvalidAuthenticityToken) unless movie 
     if !params[:receiver].blank? 
       @tickets = Repository::TicketRepository.new.where(ticket_params)
       render json: @tickets, except: [:receiver, :created_at, :updated_at, :ticket_desk_id]
@@ -41,7 +41,7 @@ class TicketController < ApplicationController
         )
     buy = self.post_success(@wrapper)
     if buy
-      if (params[:paid].eql?(true))
+      if (params[:paid].eql?(false))
         if DateTime.now.hour*60- DateTime.now.min > movie[:starts_at].hour*60+movie[:starts_at].min
           nump_minute = 24.hour*60 - DateTime.now.hour*60- DateTime.now.min + movie[:starts_at].hour*60+movie[:starts_at].min-30.minutes
         else
