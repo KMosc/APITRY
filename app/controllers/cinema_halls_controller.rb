@@ -9,12 +9,12 @@ class CinemaHallsController < ApplicationController
   end
 
   def create
-    #if employer?
-    repository=Repository::CinemaHallRepository.new
-    post_success(repository) 
-    #else
-    #render json: ["error": "You are not employee"]
-    #end
+    if employer?
+      repository=Repository::CinemaHallRepository.new
+      post_success(repository) 
+    else
+      render json: ["error": "You are not employee"]
+    end
   end
 
   def destroy

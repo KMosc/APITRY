@@ -32,7 +32,7 @@ class TicketController < ApplicationController
 
   def create
     movie = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
-    throw :abort unless movie 
+    raise(ActionController::InvalidAuthenticityToken) unless movie 
     @left_Repository = Repository::TicketRepository.new
     @right_Repository = Repository::CinemaHallRepository.new
     @wrapper = Buy::Decorator.new(

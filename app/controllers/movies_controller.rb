@@ -2,8 +2,6 @@ class MoviesController < ApplicationController
   skip_before_action :doorkeeper_authorize!, only: %i[index show]
 
   def index
-      #link = CinemaHall.where(cinema_hall_id: params[:cinema_hall_id])
-      #throw(:abort) unless link 
       if (params.has_key?(:cinema_hall_id))
         movies = Movie.where(
           cinema_hall_id: params[:cinema_hall_id]
@@ -20,12 +18,12 @@ class MoviesController < ApplicationController
     
   end
   def create
-      #if employer?
-      repository=Repository::MovieRepository.new
-      self.post_success(repository)
-      #else
-       # render json: ["error": "You are not employee"]
-      #end
+      if employer?
+        repository=Repository::MovieRepository.new
+        self.post_success(repository)
+      else
+        render json: ["error": "You are not employee"]
+      end
   end
 
   private
