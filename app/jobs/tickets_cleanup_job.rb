@@ -4,9 +4,9 @@ class TicketsCleanupJob < ApplicationJob
   sidekiq_options retry: false
   queue_as :tickets_cleanup_job
 
-  def perform(nump_minute,params, password, movie, seat)
-    logger.debug "Deletion ticket in #{nump_minute} minutes. Pay before that"
-    if Ticket.destroy_by(password: password, movie_id: movie[:id], seat: seat)
+  def perform(minutes_left,params, password, movie, seat)
+    logger.debug "Deletion ticket in #{minutes_left} minutes. Pay before that"
+    if Ticket.destroy_by(password: minutes_left, movie_id: movie[:id], seat: seat)
       PaymentHistory.create!(email: password, seat: seat, starts_at: starts_at, ends_at: ends_at, movie_id: movie[:id])
       logger.debug "Tickets that were paid, destroyed."
       self.cancel_ticket_mail(params)
