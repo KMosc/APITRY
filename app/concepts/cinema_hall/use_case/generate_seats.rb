@@ -3,6 +3,8 @@
 module UseCase
     module CinemaHalls 
         class GenerateSeats < UseCase::Base::Base 
+            # method to returns all seats in CinemaHall based on volume
+
             def call(id)
                 begin
                     cinema_hall = repository.find_by(id) 

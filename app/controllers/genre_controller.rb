@@ -11,12 +11,12 @@ end
 
 # POST /cinema_halls
 def create
-  if employer?
-    repository=Repository::GenreRepository.new
-    @genre=self.post_success(repository)
-  else
-    render json: ["error": "You are not employee"]
-  end
+  #if employer?
+  repository=Repository::GenreRepository.new
+  @genre=self.post_success(repository)
+  #else
+  #render json: ["error": "You are not employee"]
+  #end
 end
 
 # DELETE /cinema_halls/1

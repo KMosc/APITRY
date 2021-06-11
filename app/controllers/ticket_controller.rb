@@ -6,7 +6,7 @@ class TicketController < ApplicationController
 
   def index   
     @link = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
-    throw :abort unless @link 
+    raise(ActionController::InvalidAuthenticityToken) unless @link 
     if !params[:receiver].blank? 
       @tickets = Repository::TicketRepository.new.where(ticket_params)
       render json: @tickets, except: [:receiver, :created_at, :updated_at, :ticket_desk_id]
@@ -59,16 +59,11 @@ class TicketController < ApplicationController
     
 
 private
-
-    def route_availabe?
-      !TicketDesk.exists?(id: params[:ticket_desk_id]) && !CinemaHall.exists?(id: params[:cinema_hall_id])
-    end
-
     def post_success(wrapper)
       usecase =UseCase::Decorator::Buy.new(wrapper)
       usecase.call(params[:id], params[:password], ticket_params)
     end
-
+  # Only allow a list of trusted parameters through.
     def ticket_params
       params.permit(:id, :paid, :password, :seat, :ticket_desk_id, :cinema_hall_id, :movie_id)
        

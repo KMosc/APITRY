@@ -27,7 +27,7 @@ class TicketDesksController < ApplicationController
         render json: ["log": "failure"]
       end
     end
-
+  # Only allow a list of trusted parameters through.
     def ticket_desk_params
       params.permit(:id, :name, :automated)
     end

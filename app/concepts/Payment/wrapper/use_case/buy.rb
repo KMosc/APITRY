@@ -7,7 +7,7 @@ module UseCase
         def initialize(wrapper)
           @wrapper = wrapper
         end
-
+       # create payment
         def call(id,password, ticket_params)
           left = @wrapper.left_Repository
           right = @wrapper.right_Repository
@@ -17,12 +17,12 @@ module UseCase
         end
     
     private
-
-    def validate?(id,password, left_Repository, right_Repository, seat, params)
+    #checks if email=password not blank and seat can be taken
+    def validate?(id,email, left_Repository, right_Repository, seat, params)
       available_seats = UseCase::CinemaHalls::GenerateSeats.new(right_Repository).call(params[:cinema_hall_id]) - UseCase::Tickets::Taken.new(left_Repository).call(params)
-      !password.blank? && seat.in?(available_seats) && available_seats.count > 0
+      !email.blank? && seat.in?(available_seats) && available_seats.count > 0
     end
-
+    #payment succed, ticket create
     def payment(left, ticket_params, cinema_hall_id, seat, movie_id)
         attributes = ticket_params.clone
         @ticket= left.create(attributes)

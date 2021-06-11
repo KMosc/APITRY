@@ -1,6 +1,7 @@
 module UseCase
     module Tickets
       class Taken < UseCase::Base::Base
+        # What tickets were taken for movie in cinema hall
         def call(params)
           seats_taken=[]
           i = 0

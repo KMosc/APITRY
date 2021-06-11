@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
   def current_user
     @current_user ||= User.find_by(id: doorkeeper_token[:resource_owner_id])
   end
-
+  # checks if user is employee
   def employer?
     @current_user.admin.equal?(true)
   end
