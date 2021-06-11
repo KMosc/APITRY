@@ -41,15 +41,16 @@ class TicketController < ApplicationController
         )
     buy = self.post_success(@wrapper)
     if buy
-      if (!params[:paid].eql?(true))
+      is_reservation = params[:paid]
+      if ( is_reservation == "true" )
+        self.send_ticket_mail
+      else
         if DateTime.now.hour*60- DateTime.now.min > movie[:starts_at].hour*60+movie[:starts_at].min
           minutes_left = 24.hour*60 - DateTime.now.hour*60- DateTime.now.min + movie[:starts_at].hour*60+movie[:starts_at].min-30.minutes
         else
           minutes_left = movie[:starts_at].hour*60+movie[:starts_at].min - DateTime.now.hour*60- DateTime.now.min
         end
-        TicketsCleanupJob.set(wait: minutes_left.minutes).perform_later(minutes_left,ticket_params, params[:password], movie, params[:seat])
-      else
-        self.send_ticket_mail
+        cleanup_job=TicketsCleanupJob.set(wait: minutes_left.minutes).perform_later(minutes_left,ticket_params, params[:password], movie, params[:seat])
       end
       render json: ["log": "success"]
     else
