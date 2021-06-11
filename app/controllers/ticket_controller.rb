@@ -41,17 +41,7 @@ class TicketController < ApplicationController
         )
     buy = self.post_success(@wrapper)
     if buy
-      is_reservation = params[:paid]
-      if ( is_reservation == "true" )
-        self.send_ticket_mail
-      else
-        if DateTime.now.hour*60- DateTime.now.min > movie[:starts_at].hour*60+movie[:starts_at].min
-          minutes_left = 24.hour*60 - DateTime.now.hour*60- DateTime.now.min + movie[:starts_at].hour*60+movie[:starts_at].min-30.minutes
-        else
-          minutes_left = movie[:starts_at].hour*60+movie[:starts_at].min - DateTime.now.hour*60- DateTime.now.min
-        end
-        cleanup_job=TicketsCleanupJob.set(wait: minutes_left.minutes).perform_later(minutes_left,ticket_params, params[:password], movie, params[:seat])
-      end
+      after_payment_success_for(movie)
       render json: ["log": "success"]
     else
       render json: ["log": "failure"]
@@ -60,15 +50,17 @@ class TicketController < ApplicationController
     
 
 private
-    def post_success(wrapper)
-      usecase =UseCase::Decorator::Buy.new(wrapper)
-      usecase.call(params[:id], params[:password], ticket_params)
-    end
   # Only allow a list of trusted parameters through.
     def ticket_params
       params.permit(:id, :paid, :password, :seat, :ticket_desk_id, :cinema_hall_id, :movie_id)
        
     end    
+
+
+    def post_success(wrapper)
+      usecase =UseCase::Decorator::Buy.new(wrapper)
+      usecase.call(params[:id], params[:password], ticket_params)
+    end
 
     def send_ticket_mail
       TicketMailer.with(
@@ -77,5 +69,22 @@ private
         movie_id: params[:movie_id], 
         seat: params[:seat] 
         ).mail_after_success_buy.deliver_now!
+    end
+    
+    def lauching_time_of(movie)
+      if DateTime.now.hour*60- DateTime.now.min > movie[:starts_at].hour*60+movie[:starts_at].min
+        minutes_left = 24.hour*60 - DateTime.now.hour*60- DateTime.now.min + movie[:starts_at].hour*60+movie[:starts_at].min-30.minutes
+      else
+        minutes_left = movie[:starts_at].hour*60+movie[:starts_at].min - DateTime.now.hour*60- DateTime.now.min
+      end
+      minutes_left
+    end
+
+    def after_payment_success_for(movie)
+      if (params[:paid]== "true" )
+        self.send_ticket_mail
+      else
+        cleanup_job=TicketsCleanupJob.set(wait: lauching_time_of(movie).minutes).perform_later(lauching_time_of(movie),ticket_params, params[:password], movie, params[:seat])
+      end
     end
 end
