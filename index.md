@@ -66,6 +66,15 @@ rails db:seed
 ```markdown
 sudo service redis-server restart
 ```
+### If you want your mailer to work.
+```markdown
+https://support.google.com/accounts/answer/185833?hl=en
+
+Look into /config/environments/ and initialize environment variables accordingly to email config.
+
+Change default mailers in mailer files.
+```
+
 ### If you want to start server
 ```markdown
 # Development mode
