@@ -49,19 +49,24 @@ bundle install
 ```
 Database commands
 ```markdown
-# Run Postgres
+<br/>
+### Run Postgres
 sudo service postgresql restart
 
-# Initialize your rails databse
+### Initialize your rails databse
 rails db:create
 
-# Run database migration
+### Run database migration
 rails db:migrate
 
-# If you want sample datas, run
+### If you want sample datas, run
 rails db:seed
 ```
-# If you want to start server
+### Before you run the server, make sure your redis-sever running, if not. Restart it
+```markdown
+sudo service redis-server restart
+```
+### If you want to start server
 ```markdown
 # Development mode
 rails s
@@ -69,6 +74,16 @@ rails s
 rails s -e production
 ```
 
+### Testing
+## If you want to generate Coverage of the Tests
+```markdown
+COVERAGE=true rspec spec
+```
+<br/>
+<br/>
+<br/>
+
+# Website Functionalities
 
 ### What user can do during using the site?
 ```markdown
@@ -86,9 +101,9 @@ Each user can
   -Make Reservation
     -Your ticket is gonna be deleted if you dont pay 30 minutes before movies start.
 ```
-
+<br/>
 ### Know How
-
+<br/>
 ### Wrap your mind around the API, How It all works.
 The project has multiple components. Lets start the reading.
 
@@ -105,7 +120,7 @@ Each movie is as well seance. It has its starts' date and ends' date. It has ref
 - You can take only take ticket thats' seat is declared in empty seats list.
 - Each cinema hall has its volume, the API creates empty seats list accordingly to volume of cinema hall, each row has maximum 10 seats.
 ```
-
+<br/>
 # How the Authentication works?
 ```markdown
 # What does happpen in controller once You create an account?
