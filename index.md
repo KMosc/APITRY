@@ -127,13 +127,18 @@ Each movie is as well seance. It has its starts' date and ends' date. It has ref
 # What does happpen in controller once You create an account?
 
 ## Creation of account
--User_controller checks if your params[:email] is email, and if params[:password] has desired length.
--It searches if params[:client_id] is equal any of Doorkeeper::Application.uid, either It returns error message.
+-User_controller checks 
+  -if your params[:email] is email,
+  -if params[:password] has desired length.
+-It searches if params[:client_id] is equal any of Doorkeeper::Application.uid, either 
+  -It returns error message.
 # Creation of Token
--It creates Doorkeeper::AccessToken using your client_id,Doorkeeper::Application.uid and refresh token
+-It creates Doorkeeper::AccessToken using your client_id,Doorkeeper::Application.uid and reftoken
 -Two the same refresh tokens cannot exist
-  -it checks in database and returns the one that not exist". Each token has some expiration date.
--After creation, it renders the nessesary information for user to log in auth token type, expiration date, access_token
+  -it checks in database and returns the one that not exist". 
+    -Each token has some expiration date.
+-After creation, it renders the nessesary information for user to log in:
+  -auth token type, expiration date, access_token
 ## Log in
 -Every time we want to log in to authorized page,
 -It checks if our token exists in Doorkeeeper::AccessToken and is assigned to our account.
