@@ -22,7 +22,6 @@ jobs:
 
       - store_artifacts:
           path: test-results
-          destination: test_results
           
 
   test:
