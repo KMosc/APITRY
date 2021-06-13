@@ -16,10 +16,22 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/bundle-install
-          
+       
       - store_test_results:
           path: /tmp/test-results
 
       - store_artifacts:
           path: /tmp/test-results
           destination: test_results
+          
+jobs:
+  test:
+    executor: ruby
+    steps:
+      - checkout
+      - run: gem install rspec
+      - run: rspec --failure-exit-code=0
+      - persist_to_workspace:
+          root: .
+          paths:
+            - '*'
