@@ -1,32 +1,69 @@
-## Welcome to GitHub Pages
+## Welcome to MonteCinema API Page
 
-You can use the [editor on GitHub](https://github.com/KMosc/APITRY/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+I've dedicated my time to develop that API during Monterail Rubycamp.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### About the project
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+The App uses multiple gems to develop an app such as:
 
 ```markdown
-Syntax highlighted code block
+# Database
+  -'pg'
+# Authentication
+  -'devise'
+  -'doorkeeper'
+  -'bcrypt'
+# Scheduling Jobs
+  -'sidekiq'
+# Tests
+  -'faker'
+  -'simplecov'
+  -'byebug'
+  -'rspec-rails'
+```
+It uses as well multiple gem/tools
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```markdown
+# Tools
+  -'redis'
+  -'brakeman'
+  -'bundle-audit'
+  -'sentry-ruby'
+  -'sentry-rails'
+# Heroku addons
+  -'scout_apm'
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+
+### How to run an app?
+Clone the project via command.
+```markdown
+git clone https://github.com/KMosc/APITRY.git
+```
+Make sure You have your Ruby installed and its version equals 3.0.0
+```markdown
+ruby -v
+```
+Install all needed gem files
+```markdown
+bundle install
+```
+Database commands
+```markdown
+# Run Postgres
+sudo service postgresql restart
+
+# Initialize your rails databse
+rails db:create
+
+# Run database migration
+rails db:migrate
+
+# If you want sample datas, run
+rails db:seed
+```
+
+
 
 ### Jekyll Themes
 
