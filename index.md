@@ -118,7 +118,8 @@ Each movie is as well seance. It has its starts' date and ends' date. It has ref
 # How ticket recognization works?
 ```markdown
 - You can take only take ticket thats' seat is declared in empty seats list.
-- Each cinema hall has its volume, the API creates empty seats list accordingly to volume of cinema hall, each row has maximum 10 seats.
+- Each cinema hall has its volume.
+- the API creates empty seats list accordingly to volume of cinema hall, each row has maximum 10 seats.
 ```
 <br/>
 # How the Authentication works?
