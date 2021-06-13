@@ -35,12 +35,7 @@ gem 'jwt'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 group :test do
-  gem 'rspec'
   gem 'rspec_junit_formatter'
-end
-
-group :test, :development do
-  gem 'knapsack_pro'
 end
 gem 'simplecov', require: false, group: :test
 group :development do
