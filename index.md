@@ -74,8 +74,13 @@ rails s -e production
 ```markdown
 Each user can
   -Log in
+  -Log out
+  -Create account
+  -Get list of ticket desks
+  -Get list of Cinema Halls.
   -Get list of movies that are playing
   -Get list of empty seats for the movie
+  -Get list of tickets that is linked to their email
   -Buy a ticket
     -You get confirmation on email.
   -Make Reservation
