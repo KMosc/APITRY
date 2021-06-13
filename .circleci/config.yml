@@ -16,5 +16,9 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/bundle-install
-      - store_test_results:
-          path: test-results
+- store_test_results:
+    path: /tmp/test-results
+
+- store_artifacts:
+    path: /tmp/test-results
+    destination: test_results
