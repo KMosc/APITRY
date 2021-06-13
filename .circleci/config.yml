@@ -22,3 +22,6 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test_results
+      -test:
+          override:
+             - "true"
