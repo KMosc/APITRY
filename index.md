@@ -95,6 +95,11 @@ The project has multiple components. Lets start the reading.
 ```
 Each movie is as well seance. It has its starts' date and ends' date. It has referece to cinema hall, where ticket gets number of total tickets for choosen movie.
 
+# How ticket recognization works?
+```markdown
+- You can take only take ticket thats' seat is declared in empty seats list.
+- Each cinema hall has its volume, the API creates empty seats list accordingly to volume, each row has maximum 10 seats.
+```
 
 # How the Authentication works?
 ```markdown
