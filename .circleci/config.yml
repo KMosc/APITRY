@@ -11,7 +11,7 @@ jobs:
       - checkout
       - run:
           name: Install bundler
-          command: gem install bundler:2.2.19
+          command: gem install bundler:3.0.0
       - run:
           name: Which bundler?
           command: bundle -v
