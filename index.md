@@ -61,6 +61,15 @@ rails db:migrate
 # If you want sample datas, run
 rails db:seed
 ```
+# If you want to start server
+```markdown
+# Development mode
+rails s
+# Production mode
+rails s -e production
+```
+
+
 ### What user can do during using the site?
 ```markdown
 Each user can
