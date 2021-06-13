@@ -24,7 +24,7 @@ jobs:
           path: /tmp/test-results
           destination: test_results
           
-jobs:
+
   test:
     executor: ruby
     steps:
