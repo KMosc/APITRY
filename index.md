@@ -139,8 +139,7 @@ Each movie is as well seance. It has its starts' date and ends' date. It has ref
 - [x] Sets(usecase, repository, representer) of each models inherits from Base
 - [x] Add usecase for returning seats that were taken and matrix representation of cinema_hall.
 - [x] Add usecase for buying tickets
-
- Documentation add url
+- [x] Documentation add url
 ### MonteCinema v0.0.1.2.1
 - [x] add => password .attribute] to: ticket .model
 - [x] rework =>ticket controller
