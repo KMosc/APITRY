@@ -1,0 +1,36 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2 
+
+jobs:
+  build:
+    docker:
+      - image: cimg/ruby:3.0.0
+    executor: ruby/default
+    steps:
+      - checkout
+      - run:
+          name: Install bundler
+          command: gem install bundler
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - ruby/bundle-install
+       
+      - store_test_results:
+          path: test-results
+
+      - store_artifacts:
+          path: test-results
+          
+
+  test:
+    executor: ruby
+    steps:
+      - checkout
+      - run: gem install rspec
+      - run: rspec --failure-exit-code=0
+      - persist_to_workspace:
+          root: .
+          paths:
+            - '*'
