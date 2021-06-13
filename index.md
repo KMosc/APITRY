@@ -157,7 +157,7 @@ Each movie is as well seance. It has its starts' date and ends' date. It has ref
 - [x] available 🎟tickets [boolean test change]
 ### MonteCinema v0.0.1.2
 - [x] adding => [genre model & controller]
-- [x]ticket bought to choosen movie [fixup!]
+- [x] ticket bought to choosen movie [fixup!]
 - [x] deleting => [user model & controller]
 ### MonteCinema v 0.0.1.7
 - [x] adding validators
