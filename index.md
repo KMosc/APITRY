@@ -3,7 +3,7 @@
 I've dedicated my time to develop that API during Monterail Rubycamp.
 ### About the project
 
-The App uses multiple gems to develop an app such as:
+The App uses multiple gems such as:
 
 ```markdown
 # Database
