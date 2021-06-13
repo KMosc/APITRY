@@ -48,8 +48,9 @@ Install all needed gem files
 bundle install
 ```
 Database commands
-```markdown
 <br/>
+
+```markdown
 ### Run Postgres
 sudo service postgresql restart
 
