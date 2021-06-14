@@ -3,36 +3,7 @@
 I've dedicated my time to develop that API during Monterail Rubycamp.
 ### About the project
 
-The App uses multiple gems such as:
-
-```markdown
-# Database
-  -'pg'
-# Authentication
-  -'devise'
-  -'doorkeeper'
-  -'bcrypt'
-# Scheduling Jobs
-  -'sidekiq'
-# Tests
-  -'faker'
-  -'simplecov'
-  -'byebug'
-  -'rspec-rails'
-```
-It uses as well multiple gem/tools
-
-```markdown
-# Tools
-  -'redis'
-  -'brakeman'
-  -'bundle-audit'
-  -'sentry-ruby'
-  -'sentry-rails'
-# Heroku addons
-  -'scout_apm'
-```
-
+The App uses multiple gems, You can find its list in Gemfile.
 
 ### How to run an app?
 Clone the project via command.
@@ -51,9 +22,6 @@ Database commands
 <br/>
 
 ```markdown
-### Run Postgres
-sudo service postgresql restart
-
 ### Initialize your rails databse
 rails db:create
 
@@ -63,10 +31,8 @@ rails db:migrate
 ### If you want sample datas, run
 rails db:seed
 ```
-### Before you run the server, make sure your redis-sever running, if not. Restart it
-```markdown
-sudo service redis-server restart
-```
+### Before you run the server, make sure your postgres and redis-sever are running, if not. Restart it
+
 ### If you want your mailer to work.
 ```markdown
 https://support.google.com/accounts/answer/185833?hl=en
