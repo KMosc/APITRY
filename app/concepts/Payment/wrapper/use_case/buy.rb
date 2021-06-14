@@ -3,32 +3,33 @@ module UseCase
     class Buy
       attr_reader :wrapper
 
-      def initialize(wrapper)
+      def initialize(wrapper, ticket_params)
         @wrapper = wrapper
+        @ticket_params = ticket_params
       end
        # create payment
-      def call(id,password, ticket_params)
-        left = @wrapper.left_Repository
-        right = @wrapper.right_Repository
-        if validate?(id,ticket_params[:password], left, right, ticket_params[:seat], ticket_params)
-          payment(left, ticket_params, ticket_params[:cinema_hall_id], ticket_params[:seat], ticket_params[:movie_id])
+      def call
+        if validate?
+          payment
         end
       end
     
     private
-    def available_seats(left_Repository, right_Repository, params)
-      UseCase::CinemaHalls::GenerateSeats.new(right_Repository).call(params[:cinema_hall_id]) - UseCase::Tickets::Taken.new(left_Repository).call(params)
+    def available_seats
+      no_seats=UseCase::CinemaHalls::GenerateSeats.new(@wrapper.right_Repository).call(@ticket_params[:cinema_hall_id])
+      taken_seats=UseCase::Tickets::Taken.new(@wrapper.left_Repository).call(@ticket_params)
+      return no_seats-taken_seats
     end
 
-    def validate?(id,email, left_Repository, right_Repository, seat, params)
-      seats_nil_tickets = available_seats(left_Repository, right_Repository, params)
-      !email.blank? && seat.in?(seats_nil_tickets) && seats_nil_tickets.count > 0
+    def validate?
+      seats_nil_tickets = available_seats()
+      !@ticket_params[:password].blank? && @ticket_params[:seat].in?(seats_nil_tickets) && seats_nil_tickets.count > 0
     end
 
     #payment succed, ticket create
-    def payment(left, ticket_params, cinema_hall_id, seat, movie_id)
-        attributes = ticket_params.clone
-        @ticket= left.create(attributes)
+    def payment
+        attributes = @ticket_params.clone
+        @ticket= wrapper.left_Repository.create(attributes)
     end
   end
   end

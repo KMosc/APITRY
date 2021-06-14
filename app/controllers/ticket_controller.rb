@@ -39,7 +39,7 @@ class TicketController < ApplicationController
         Repository::TicketRepository.new, 
         Repository::CinemaHallRepository.new
         )
-    buy = self.post_success(@wrapper)
+    buy = self.post_success(@wrapper, ticket_params)
     if buy
       after_payment_success_for(movie)
       render json: ["log": "success"]
@@ -57,9 +57,9 @@ private
     end    
 
 
-    def post_success(wrapper)
-      usecase =UseCase::Decorator::Buy.new(wrapper)
-      usecase.call(params[:id], params[:password], ticket_params)
+    def post_success(wrapper,ticket_params)
+      usecase =UseCase::Decorator::Buy.new(wrapper, ticket_params)
+      usecase.call()
     end
 
     def send_ticket_mail
@@ -72,7 +72,8 @@ private
     end
     
     def lauching_time_of(movie)
-      if DateTime.now.hour*60- DateTime.now.min > movie[:starts_at].hour*60+movie[:starts_at].min
+      next_day = DateTime.now.hour*60- DateTime.now.min > movie[:starts_at].hour*60+movie[:starts_at].min
+      if next_day
         minutes_left = 24.hour*60 - DateTime.now.hour*60- DateTime.now.min + movie[:starts_at].hour*60+movie[:starts_at].min-30.minutes
       else
         minutes_left = movie[:starts_at].hour*60+movie[:starts_at].min - DateTime.now.hour*60- DateTime.now.min
