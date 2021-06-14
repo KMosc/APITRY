@@ -119,7 +119,7 @@ Each movie is as well seance. It has its starts' date and ends' date. It has ref
 -Every time we want to log in to authorized page,
 -It checks if our token exists in Doorkeeeper::AccessToken and is assigned to our account.
 -If we want to refresh our access_token expired.
-  -We log in, we use client_id, client_secret, email and password, new token is assigned.
+-We log in, we use client_id, client_secret, email and password, new token is assigned.
 ```
 
 # Changelog
