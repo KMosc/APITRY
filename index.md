@@ -1,3 +1,65 @@
+# Changelog
+### MonteCinema v0.0.1.4.1
+- [x] split main methods to sub methods
+- [x] better names for methods
+### MonteCinema v0.0.1.4
+- [x] Adding faker to rspec tests
+- [x] Installing gems: bundle-audit,brakeman, simplecov
+- [x] Adding payment history model
+- [x] Adding job to delete not paid ticket from tickets, add its record to payment history.
+- [x] Adding wait to scheduled job for some minutes 
+- [x] Adding mailer to job. Once job is called, mail is being sent to the user.
+
+### MonteCinema v0.0.1.3.5
+- [x] Register + Login with devise and doorkeeper
+- [x] Employee recognization => boolean type "admin" column in user model.
+- [x] Post requests to create [ cinema hall, ticketdesk, movie, genre ] if user is admin
+### MonteCinema v0.0.1.3
+- [x] Clearing code
+- [x] Adding Validates_presence_of
+- [x] Deployment to Heroku
+- [x] Mailer is working
+- [x] Mail validation
+### MonteCinema v0.0.1.2.6
+- [x] Default value for each repository, constructor runs without args, accordindly to module/class.
+### MonteCinema v0.0.1.2.5
+- [x] Uniqness validator for ticket
+- [x] Validator for buy usecase, new private methods
+### MonteCinema v0.0.1.2.3
+- [x] Adding Monteway to API
+- [x] Adding Base Class for Usecase, Repository and Representer
+- [x] Sets(usecase, repository, representer) of each models inherits from Base
+- [x] Adding usecase for returning seats that were taken and matrix representation of cinema_hall.
+- [x] Adding usecase for buying tickets
+- [x] Documentation add url
+### MonteCinema v0.0.1.2.1
+- [x] Adding => password .attribute] to: ticket .model
+- [x] Re-working =>ticket controller
+- [x] Hiding few columns while rendering json
+- [x] Adding password to set_ticket_params
+- [x] Available 🎟tickets [boolean test change]
+### MonteCinema v0.0.1.2
+- [x] Adding => [genre model & controller]
+- [x] Ticket buying to choosen movie [fixup!]
+- [x] Deleting => [user model & controller]
+### MonteCinema v 0.0.1.7
+- [x] Adding validators
+- [x] Creating models and its controllers => movie, client, genre
+- [x] Re-working model => ticket
+### MonteCinema v0.0.1.3
+- [x] Adding Gems => [Rspec, sentry]
+- [x] Controller re-working
+### MonteCinema v0.0.1.1
+- [x] Fixing Availability of cinema_hall, can't buy if there is no tickets left. fixup
+- [x] Fixing methods => [buy, booked]
+
+### MonteCinema v0.0.1 
+- [x] Creating models and its controllers => ticket_desk, cinema_hall, ticket
+- [x] Creating methods to handle listing rows of data based on url params.
+- [x] Models => [ticket_desk , cinema_hall] has features such as has_and_belongs_to_many.
+- [x] Creating methods to handle booking and buy.
+- [x] Availability of cinema_hall, can't buy if there is no tickets left.
+
 
 # Website Functionalities
 
@@ -61,65 +123,3 @@ Each movie is as well seance. It has its starts' date and ends' date. It has ref
 -If we want to refresh our access_token expired.
 -We log in, we use client_id, client_secret, email and password, new token is assigned.
 ```
-
-# Changelog
-### MonteCinema v0.0.1.4.1
-- [x] split main methods to sub methods
-- [x] better names for methods
-### MonteCinema v0.0.1.4
-- [x] Adding faker to rspec tests
-- [x] Installing gems: bundle-audit,brakeman, simplecov
-- [x] Adding payment history model
-- [x] Adding job to delete not paid ticket from tickets, add its record to payment history.
-- [x] Adding wait to scheduled job for some minutes 
-- [x] Adding mailer to job. Once job is called, mail is being sent to the user.
-
-### MonteCinema v0.0.1.3.5
-- [x] Register + Login with devise and doorkeeper
-- [x] Employee recognization => boolean type "admin" column in user model.
-- [x] Post requests to create [ cinema hall, ticketdesk, movie, genre ] if user is admin
-### MonteCinema v0.0.1.3
-- [x] Clearing code
-- [x] Adding Validates_presence_of
-- [x] Deployment to Heroku
-- [x] Mailer is working
-- [x] Mail validation
-### MonteCinema v0.0.1.2.6
-- [x] Default value for each repository, constructor runs without args, accordindly to module/class.
-### MonteCinema v0.0.1.2.5
-- [x] Uniqness validator for ticket
-- [x] Validator for buy usecase, new private methods
-### MonteCinema v0.0.1.2.3
-- [x] Adding Monteway to API
-- [x] Adding Base Class for Usecase, Repository and Representer
-- [x] Sets(usecase, repository, representer) of each models inherits from Base
-- [x] Adding usecase for returning seats that were taken and matrix representation of cinema_hall.
-- [x] Adding usecase for buying tickets
-- [x] Documentation add url
-### MonteCinema v0.0.1.2.1
-- [x] Adding => password .attribute] to: ticket .model
-- [x] Re-working =>ticket controller
-- [x] Hiding few columns while rendering json
-- [x] Adding password to set_ticket_params
-- [x] Available 🎟tickets [boolean test change]
-### MonteCinema v0.0.1.2
-- [x] Adding => [genre model & controller]
-- [x] Ticket buying to choosen movie [fixup!]
-- [x] Deleting => [user model & controller]
-### MonteCinema v 0.0.1.7
-- [x] Adding validators
-- [x] Creating models and its controllers => movie, client, genre
-- [x] Re-working model => ticket
-### MonteCinema v0.0.1.3
-- [x] Adding Gems => [Rspec, sentry]
-- [x] Controller re-working
-### MonteCinema v0.0.1.1
-- [x] Fixing Availability of cinema_hall, can't buy if there is no tickets left. fixup
-- [x] Fixing methods => [buy, booked]
-
-### MonteCinema v0.0.1 
-- [x] Creating models and its controllers => ticket_desk, cinema_hall, ticket
-- [x] Creating methods to handle listing rows of data based on url params.
-- [x] Models => [ticket_desk , cinema_hall] has features such as has_and_belongs_to_many.
-- [x] Creating methods to handle booking and buy.
-- [x] Availability of cinema_hall, can't buy if there is no tickets left.
