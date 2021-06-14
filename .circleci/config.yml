@@ -16,21 +16,11 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/bundle-install
-       
+      - checkout
+      - run: gem install rspec
+      - run: rspec --failure-exit-code=0
       - store_test_results:
           path: test-results
 
       - store_artifacts:
-          path: test-results
-          
-
-  test:
-    executor: ruby
-    steps:
-      - checkout
-      - run: gem install rspec
-      - run: rspec --failure-exit-code=0
-      - persist_to_workspace:
-          root: .
-          paths:
-            - '*'
+          path: coverage
