@@ -33,13 +33,7 @@ class TicketController < ApplicationController
   def create
     movie = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
     raise(ActionController::InvalidAuthenticityToken) unless movie 
-    @left_Repository = Repository::TicketRepository.new
-    @right_Repository = Repository::CinemaHallRepository.new
-    @wrapper = Buy::Decorator.new(
-        Repository::TicketRepository.new, 
-        Repository::CinemaHallRepository.new
-        )
-    buy = self.post_success(@wrapper, ticket_params)
+    buy = self.post_success(set_wrapper, ticket_params)
     if buy
       after_payment_success_for(movie)
       render json: ["log": "success"]
@@ -51,6 +45,14 @@ class TicketController < ApplicationController
 
 private
   # Only allow a list of trusted parameters through.
+    def set_wrapper
+      @left_Repository = Repository::TicketRepository.new
+      @right_Repository = Repository::CinemaHallRepository.new
+      @wrapper = Buy::Decorator.new(
+          Repository::TicketRepository.new, 
+          Repository::CinemaHallRepository.new
+          )
+    end
     def ticket_params
       params.permit(:id, :paid, :password, :seat, :ticket_desk_id, :cinema_hall_id, :movie_id)
        
