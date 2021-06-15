@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe "Genre concept create" do
     let(:repository) { Repository::GenreRepository.new() }
     

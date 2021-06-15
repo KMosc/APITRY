@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe "CinemaHall concept create" do
     let(:repository) { Repository::CinemaHallRepository.new() }
     

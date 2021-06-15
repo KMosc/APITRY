@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe "Ticket concept create" do
     let(:repository) { Repository::TicketRepository.new() }
     let!(:cinema_hall) { 

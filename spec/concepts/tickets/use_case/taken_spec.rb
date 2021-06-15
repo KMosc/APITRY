@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe "Ticket taken create" do
     let!(:cinema_hall) { 
         CinemaHall.create(volume: 100)    

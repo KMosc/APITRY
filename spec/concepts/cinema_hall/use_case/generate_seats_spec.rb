@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe "CinemaHall concept generate seats" do
     let(:repository) { Repository::CinemaHallRepository.new() }
     let(:cinema_hall) { 

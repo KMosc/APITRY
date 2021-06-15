@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe "Ticket_Desk concept create" do
     let(:repository) { Repository::TicketDeskRepository.new() }
     
