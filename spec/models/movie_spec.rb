@@ -9,7 +9,7 @@ RSpec.describe Movie, type: :model do
             Genre.create(title: 'test', description: 'test')    
           }
         context 'when all params are passed' do
-          it 'creates genre with valid params: {title, description}' do
+          it 'creates movie with valid params' do
             subject= Movie.create(
                 title: 'test', 
                 description: 'test', 
