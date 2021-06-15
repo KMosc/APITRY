@@ -1,4 +1,7 @@
 # Changelog
+### MonteCinema v0.0.1.4.3
+- [x] Adding model tests
+- [x] Adding concepts usecase tests 
 ### MonteCinema v0.0.1.4.1
 - [x] split main methods to sub methods
 - [x] better names for methods
