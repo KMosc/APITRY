@@ -1,4 +1,4 @@
-RSpec.describe  do
+RSpec.describe "Ticket_Desk concept create" do
     let(:repository) { Repository::TicketDeskRepository.new() }
     
     subject { UseCase::TicketDesk::Create.new(repository).call(name: 'text', automated: true) }

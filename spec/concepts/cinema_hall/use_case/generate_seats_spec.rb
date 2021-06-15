@@ -1,4 +1,4 @@
-RSpec.describe  do
+RSpec.describe "CinemaHall concept generate seats" do
     let(:repository) { Repository::CinemaHallRepository.new() }
     let(:cinema_hall) { 
         repository=Repository::CinemaHallRepository.new()

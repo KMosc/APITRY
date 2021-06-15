@@ -1,4 +1,4 @@
-RSpec.describe  do
+RSpec.describe "CinemaHall concept create" do
     let(:repository) { Repository::CinemaHallRepository.new() }
     
     subject { UseCase::CinemaHalls::Create.new(repository).call(volume: 100) }

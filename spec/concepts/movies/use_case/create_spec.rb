@@ -1,4 +1,4 @@
-RSpec.describe  do
+RSpec.describe "Movie concept create" do
     let(:repository) { Repository::MovieRepository.new() }
     let!(:cinema_hall) { 
         CinemaHall.create(volume: 100)    

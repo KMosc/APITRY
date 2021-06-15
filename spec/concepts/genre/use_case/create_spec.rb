@@ -1,4 +1,4 @@
-RSpec.describe  do
+RSpec.describe "Genre concept create" do
     let(:repository) { Repository::GenreRepository.new() }
     
     subject { UseCase::Genres::Create.new(repository).call(title: 'test', description: 'test') }
