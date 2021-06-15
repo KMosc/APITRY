@@ -84,7 +84,7 @@ private
     end
 
     def after_payment_success_for(movie)
-      if (params[:paid]== "true" )
+      if (params[:paid]== "true" && TicketDesk.find(params[:ticket_desk_id]).automated == false )
         self.send_ticket_mail
       else
         cleanup_job=TicketsCleanupJob.set(wait: lauching_time_of(movie).minutes).perform_later(lauching_time_of(movie),ticket_params, params[:password], movie, params[:seat])
