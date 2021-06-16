@@ -78,14 +78,25 @@ private
       if next_day
         minutes_left = 24.hour*60 - DateTime.now.hour*60- DateTime.now.min + movie[:starts_at].hour*60+movie[:starts_at].min-30.minutes
       else
-        minutes_left = movie[:starts_at].hour*60+movie[:starts_at].min - DateTime.now.hour*60- DateTime.now.min
+        minutes_left = movie[:starts_at].hour*60+movie[:starts_at].min-30.minutes - DateTime.now.hour*60- DateTime.now.min
+      end
+      minutes_left
+    end
+    def end_time_of(movie)
+      next_day = DateTime.now.hour*60- DateTime.now.min > movie[:ends_at].hour*60+movie[:ends_at].min
+      if next_day
+        minutes_left = 24.hour*60 - DateTime.now.hour*60- DateTime.now.min + movie[:ends_at].hour*60+movie[:ends_at].min
+      else
+        minutes_left = movie[:ends_at].hour*60+movie[:ends_at].min - DateTime.now.hour*60- DateTime.now.min
       end
       minutes_left
     end
 
     def after_payment_success_for(movie)
-      if (params[:paid]== "true" && TicketDesk.find(params[:ticket_desk_id]).automated == false )
+      if (TicketDesk.find(params[:ticket_desk_id]).automated == false )
         self.send_ticket_mail
+        cleanup_job=TicketsAfterSeanceCleanupJob.set(wait: end_time_of(movie).minutes).perform_later(end_time_of(movie),ticket_params, params[:password], movie, params[:seat])
+
       else
         cleanup_job=TicketsCleanupJob.set(wait: lauching_time_of(movie).minutes).perform_later(lauching_time_of(movie),ticket_params, params[:password], movie, params[:seat])
       end
