@@ -7,9 +7,9 @@ class TicketController < ApplicationController
   def index   
     movie = Movie.find_by(id: params[:movie_id], cinema_hall_id: params[:cinema_hall_id])
     raise(ActionController::InvalidAuthenticityToken) unless movie 
-    if !params[:receiver].blank? 
+    if !params[:password].blank? 
       @tickets = Repository::TicketRepository.new.where(ticket_params)
-      render json: @tickets, except: [:receiver, :created_at, :updated_at, :ticket_desk_id]
+      render json: @tickets, except: [:created_at, :updated_at, :ticket_desk_id]
     else
       render json: Decorator::Buy::Representer.new(
         Buy::Decorator.new(
