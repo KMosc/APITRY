@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   end
   resources :genre 
   resources :ticket_desks
+  resources :movies
   resources :ticket_desks do
     resources :movies do
 
