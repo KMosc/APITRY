@@ -17,14 +17,14 @@ Rails.application.routes.draw do
     resources :movies
   end
   resources :genre 
-  resources :ticket_desks
-  resources :movies
-  resources :ticket_desks do
+  resources :movies do
+    resources :ticket, only: %i[index]
+  end
+
+  resources :ticket_desks, only: %i[index, create] do
     resources :movies do
 
       resources :ticket, only: %i[create]
-      resources :ticket, only: %i[index]
-
       resources :genre 
     end
   end

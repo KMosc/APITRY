@@ -12,6 +12,12 @@ RSpec.describe "Ticket requests" do
     let!(:movie) { 
       Movie.create!(title: "test", description: "test", age_restriction: 16, starts_at: "18:00", ends_at: "18:00", cinema_hall_id: cinema_hall.id, genre_id: genre.id)
     }
+    let!(:ticket_desks){ 
+      TicketDesk.create(
+            name: 'test',
+            automated: true
+              )
+     }
 
   let!(:doorkeeper) { 
     Doorkeeper::Application.create!(name: "Android client", redirect_uri: "", scopes: "")    
@@ -28,7 +34,7 @@ RSpec.describe "Ticket requests" do
     end
 
     it "Create the tickets" do
-      post("/movies/#{movie.id}/ticket", params: {password: user.password, seat: "1B", movie_id: movie.id, cinema_hall_id: cinema_hall.id})
+      post("/ticket_desks/#{ticket_desks.id}/movies/#{movie.id}/ticket", params: {password: user.password, seat: "1B", movie_id: movie.id, cinema_hall_id: cinema_hall.id})
       expect(response.status).to eq(401)
     end
   end
