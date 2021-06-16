@@ -1,4 +1,4 @@
-class PaymentHistory < ApplicationController
+class PaymentHistoryController < ApplicationController
     skip_before_action :doorkeeper_authorize!, only: %i[index show]
     def index
         payments = PaymentHistory.where(email: params[:password])
