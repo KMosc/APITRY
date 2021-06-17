@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :doorkeeper_authorize!, only: %i[create]
 
   def create
-    user = User.new(email: user_params[:email], password: user_params[:password], admin: false, image_data: user_params[:image])
+    user = User.new(user_params)
     client_app = Doorkeeper::Application.find_by(uid: params[:client_id])
 
     return render(json: { error: 'Invalid client ID'}, status: 403) unless client_app

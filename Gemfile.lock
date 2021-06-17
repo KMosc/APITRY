@@ -294,7 +294,7 @@ DEPENDENCIES
   scout_apm
   sentry-rails
   sentry-ruby
-  shrine (~> 3.0)
+  shrine
   sidekiq
   simplecov
   spring
