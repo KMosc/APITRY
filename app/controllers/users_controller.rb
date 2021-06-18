@@ -2,8 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :doorkeeper_authorize!, only: %i[create]
 
   def create
-    user = User.new(email: user_params[:email], password: user_params[:password], admin: false)
-
+    user = User.new(user_params)
     client_app = Doorkeeper::Application.find_by(uid: params[:client_id])
 
     return render(json: { error: 'Invalid client ID'}, status: 403) unless client_app
@@ -28,7 +27,8 @@ class UsersController < ApplicationController
           token_type: 'bearer',
           expires_in: access_token.expires_in,
           refresh_token: access_token.refresh_token,
-          created_at: access_token.created_at.to_time.to_i
+          created_at: access_token.created_at.to_time.to_i,
+          photo: user.image
         }
       })
     else
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:email, :password)
+    params.permit(:email, :password, :image)
   end
 
   def generate_refresh_token

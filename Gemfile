@@ -7,6 +7,7 @@ gem 'resque'
 gem 'sidekiq'
 gem "sentry-ruby"
 gem "sentry-rails"
+gem 'shrine'
 gem 'scout_apm'
 gem 'devise'
 gem 'doorkeeper'

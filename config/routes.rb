@@ -17,14 +17,18 @@ Rails.application.routes.draw do
     resources :movies
   end
   resources :genre 
-  resources :ticket_desks
   resources :movies do
-
-    resources :ticket, only: %i[create]
     resources :ticket, only: %i[index]
-
-    resources :genre 
   end
+
+  resources :ticket_desks, only: %i[index, create] do
+    resources :movies do
+
+      resources :ticket, only: %i[create]
+      resources :genre 
+    end
+  end
+  resources :payment_history
 
 end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
