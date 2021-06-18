@@ -11,23 +11,21 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web => "/sidekiq"
   #resources :ticket_desks do
-  resources :movies, only: %i[index]
-
-  resources :cinema_halls do
-    resources :movies
+  resources :movies, only: %i[index show] do
+    resources :ticket, only: %i[index show]
   end
-  resources :genre 
-  resources :movies do
-    resources :ticket, only: %i[index]
-  end
-
-  resources :ticket_desks, only: %i[index, create] do
-    resources :movies do
-
-      resources :ticket, only: %i[create]
-      resources :genre 
+  resources :cinema_halls, only: %i[index show] do
+    resources :movies, only: %i[index show]
     end
   end
+    
+  resources :movies, only: %i[index show] do
+    resources ticket_desks, only: %i[index show] do
+      resources :ticket, only: %i[create show]
+    end
+  end
+  resources :genre 
+
   resources :payment_history
 
 end
