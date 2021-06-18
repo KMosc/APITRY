@@ -29,7 +29,7 @@ class MoviesController < ApplicationController
   private
   # Only allow a list of trusted parameters through.
   def movie_params
-    params.permit(:id, :title, :description, :age_restriction, :starts_at, :ends_at, :genre_id, :cinema_hall_id)
+    params.permit(:id, :title, :description, :age_restriction, :starts_at, :ends_at, :genre_id, :cinema_hall_id, :image)
   end
   # Post Request succesful
     def post_success(repository)
