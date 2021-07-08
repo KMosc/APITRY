@@ -5,6 +5,7 @@ module Types
     field :cinema_hall, mutation: Mutations::CinemaHallMutation
     field :genre, mutation: Mutations::GenreMutation
     field :movie, mutation: Mutations::MovieMutation
+    field :ticket, mutation: Mutations::TicketMutation
 
     def test_field
       "Hello World"
