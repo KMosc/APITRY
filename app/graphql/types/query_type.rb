@@ -6,10 +6,17 @@ module Types
 
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
+    field :ticket_desk, resolver: ::Resolvers::GetTicketDesk
+    field :ticket_desks, resolver: ::Resolvers::ListTicketDesks
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
+    field :cinema_hall, resolver: ::Resolvers::GetCinemaHall
+    field :cinema_halls, resolver: ::Resolvers::ListCinemaHalls
+
+    field :genres, resolver: ::Resolvers::ListGenres
+
+    field :movie, resolver: ::Resolvers::GetMovie
+    field :movies, resolver: ::Resolvers::ListMovies
+
     def test_field
       "Hello World!"
     end

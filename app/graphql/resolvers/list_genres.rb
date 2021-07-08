@@ -1,6 +1,6 @@
 module Resolvers
-    class Genres < GraphQL::Schema::Resolver
-      description "Single Genre "
+    class ListGenres < GraphQL::Schema::Resolver
+      description "Single Genre"
 
       type [::Types::GenreType], null: false
 

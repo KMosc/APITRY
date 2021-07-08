@@ -1,8 +1,8 @@
 module Resolvers
-    class CinemaHalls < GraphQL::Schema::Resolver
+    class ListCinemaHalls < GraphQL::Schema::Resolver
       description "list cinema halls"
 
-      type [::Types::CinemaHallType], null: false
+      type [Types::CinameHallType], null: false
 
       def resolve
         CinemaHall.all.order(volume: :asc)

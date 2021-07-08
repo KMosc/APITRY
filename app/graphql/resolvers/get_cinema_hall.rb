@@ -1,8 +1,8 @@
 module Resolvers
-    class CinemaHall < GraphQL::Schema::Resolver
+    class GetCinemaHall < GraphQL::Schema::Resolver
       description "Single cinema hall details"
 
-      type ::Types::CinemaHallType, null: false
+      type Types::CinameHallType, null: false
       argument :id, ID, required: true
 
       def resolve(id:)

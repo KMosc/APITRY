@@ -1,5 +1,5 @@
 module Resolvers
-    class TicketDesks < GraphQL::Schema::Resolver
+    class ListTicketDesks < GraphQL::Schema::Resolver
       description "List Ticket Desks"
 
       type [::Types::TicketDeskType], null: false
