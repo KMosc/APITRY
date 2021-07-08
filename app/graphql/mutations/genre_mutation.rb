@@ -1,6 +1,6 @@
 module Mutations
     class GenreMutation < BaseMutation
-      argument :title, String, required: false
+      argument :title, String, required: true
       argument :description, String, required: false
 
       def resolve(**args)

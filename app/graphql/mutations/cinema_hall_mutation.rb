@@ -1,6 +1,6 @@
 module Mutations
     class CinemaHallMutation < BaseMutation
-      argument :volume, Integer, required: false
+      argument :volume, Integer, required: true
       
       def resolve(**args)
         repository = Repository::CinemaHallRepository.new

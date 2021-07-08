@@ -1,11 +1,11 @@
 module Mutations
     class TicketMutation < BaseMutation
-      argument :title, String, required: false
-      argument :paid, Boolean, required: false
-      argument :password, String, required: false
-      argument :seat, String, required: false
-      argument :cinema_hall_id, ID, required: false
-      argument :movie_id, ID, required: false
+      argument :title, String, required: true
+      argument :paid, Boolean, required: true
+      argument :password, String, required: true
+      argument :seat, String, required: true
+      argument :cinema_hall_id, ID, required: true
+      argument :movie_id, ID, required: true
 
       def resolve(**args)
         wrapper = Buy::Decorator.new(
