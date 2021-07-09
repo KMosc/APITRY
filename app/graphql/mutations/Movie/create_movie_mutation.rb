@@ -5,6 +5,9 @@ module Mutations
       argument :age_restriction, Integer, required: true
       argument :genre_id, ID, required: true
       argument :cinema_hall_id, ID, required: true
+      argument :image, ApolloUploadServer::Upload, required: true, prepare: ->(upload, _) {
+        upload&.__getobj__
+      }
       def resolve(**args)
         repository = Repository::MovieRepository.new
         UseCase::Movies::Create.new(repository).call(args)

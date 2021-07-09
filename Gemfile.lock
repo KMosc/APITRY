@@ -70,6 +70,9 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    apollo_upload_server (2.0.5)
+      actionpack (>= 4.2)
+      graphql (>= 1.8)
     ast (2.4.2)
     bcrypt (3.1.16)
     bootsnap (1.7.5)
@@ -277,6 +280,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  apollo_upload_server (= 2.0.5)
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.4)
   brakeman
