@@ -1,5 +1,5 @@
 module Mutations
-    class MovieMutation < BaseMutation
+    class CreateMovieMutation < BaseMutation
       argument :title, String, required: true
       argument :description, String, required: false
       argument :age_restriction, Integer, required: true

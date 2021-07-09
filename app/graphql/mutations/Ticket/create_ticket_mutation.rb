@@ -1,5 +1,5 @@
 module Mutations
-    class TicketMutation < BaseMutation
+    class CreateTicketMutation < BaseMutation
       argument :title, String, required: true
       argument :paid, Boolean, required: true
       argument :password, String, required: true

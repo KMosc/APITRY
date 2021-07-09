@@ -1,5 +1,5 @@
 module Mutations
-    class GenreMutation < BaseMutation
+    class CreateGenreMutation < BaseMutation
       argument :title, String, required: true
       argument :description, String, required: false
 

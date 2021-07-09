@@ -1,5 +1,5 @@
 module Mutations
-    class CinemaHallMutation < BaseMutation
+    class CreateCinemaHallMutation < BaseMutation
       argument :volume, Integer, required: true
       
       def resolve(**args)
