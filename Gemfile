@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.0'
+gem 'graphql'
+gem 'apollo_upload_server', '2.0.5'
 gem 'redis'
 gem 'resque'
 gem 'sidekiq'
