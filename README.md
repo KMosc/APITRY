@@ -3,7 +3,7 @@
 documentation
 - https://kmosc.github.io/APITRY/
 - I've dedicated my time to develop that API during Monterail Rubycamp.
-### About the project
+### About the project!
 
 The App uses multiple gems, You can find its list in Gemfile.
 
