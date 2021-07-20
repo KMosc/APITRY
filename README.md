@@ -48,7 +48,7 @@ Change default mailers in mailer files.
 ```markdown
 # Development mode
 rails s
-# Production mode
+# Production mode.
 rails s -e production
 ```
 

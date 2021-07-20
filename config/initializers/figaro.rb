@@ -1,1 +1,1 @@
-Figaro.require_keys("mail", "mailpass", "PUBLISHABLE_KEY", "SECRET_KEY")
+Figaro.require_keys("mail", "mailpass", "publishable_key", "secret_key")
