@@ -9,6 +9,7 @@ gem 'resque'
 gem 'sidekiq'
 gem "sentry-ruby"
 gem "sentry-rails"
+gem "nokogiri",  '~> 1.8.5'
 gem 'shrine'
 gem 'scout_apm'
 gem 'devise'
@@ -16,6 +17,7 @@ gem 'doorkeeper'
 gem 'bundle-audit'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails'
+gem 'stripe'
 gem "figaro"
 # Use postgresql as the database for Active Record
 # Use Puma as the app server
@@ -56,7 +58,7 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'pq'
+  gem 'pg'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
