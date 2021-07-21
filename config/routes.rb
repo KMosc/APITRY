@@ -11,22 +11,6 @@ Rails.application.routes.draw do
   root :to => 'ticket_desks#index'
 
   mount Sidekiq::Web => "/sidekiq"
-  #resources :ticket_desks do
-  resources :movies, only: %i[index show] do
-    resources :cinema_halls, only: %i[index show] do
-      resources :ticket, only: %i[index show]
-    end
-  end
-
-    
-  resources :movies, only: %i[index show] do
-    resources :ticket_desks do
-      resources :ticket, only: %i[create show]
-    end
-  end
-  resources :genre 
-
-  resources :payment_history
 
 end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

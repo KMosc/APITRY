@@ -137,6 +137,7 @@ GEM
     marcel (1.0.1)
     method_source (1.0.0)
     mini_mime (1.0.3)
+    mini_portile2 (2.5.3)
     minitest (5.14.4)
     mono_logger (1.1.1)
     msgpack (1.4.2)
@@ -145,13 +146,15 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.7)
+    nokogiri (1.11.7)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     nokogiri (1.11.7-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     parser (3.0.1.1)
       ast (~> 2.4.1)
     pg (1.2.3)
-    pq (0.0.2)
     public_suffix (4.0.6)
     puma (5.3.2)
       nio4r (~> 2.0)
@@ -277,6 +280,7 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
+  unknown
   x86_64-linux
 
 DEPENDENCIES
@@ -294,7 +298,6 @@ DEPENDENCIES
   jwt
   listen (~> 3.3)
   pg
-  pq
   puma (~> 5.0)
   rails
   redis
@@ -314,4 +317,4 @@ RUBY VERSION
    ruby 3.0.0p0
 
 BUNDLED WITH
-   2.2.19
+   2.2.24

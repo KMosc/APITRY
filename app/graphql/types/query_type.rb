@@ -17,6 +17,11 @@ module Types
     field :movie, resolver: ::Resolvers::GetMovie
     field :movies, resolver: ::Resolvers::ListMovies
 
+    field :list_payment_histories, resolver: ::Resolvers::ListPaymentHistories
+    field :list_tickets, resolver: ::Resolvers::ListTickets
+    field :single_ticket, resolver: ::Resolvers::SignleTicket
+
+
     def test_field
       "Hello World!"
     end
