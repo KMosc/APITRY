@@ -1,5 +1,5 @@
 module Resolvers
-    class GetMovie < GraphQL::Schema::Resolver
+    class SingleMovie < GraphQL::Schema::Resolver
       description "Single movie details"
 
       type Types::MovieType, null: false
@@ -11,4 +11,4 @@ module Resolvers
           ).order(title: :asc)
       end
     end
-  end
+end

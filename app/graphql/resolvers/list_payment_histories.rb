@@ -6,7 +6,9 @@ module Resolvers
       argument :email, String, required: true
 
       def resolve(email:)
-        payments = PaymentHistory.where(email: email)
+        payments = PaymentHistory.find(:all, :conditions => { email => email })
+      rescue ActiveRecord::RecordNotFound => error
+        raise GraphQL::ExecutionError, error.message
       end
     end
   end

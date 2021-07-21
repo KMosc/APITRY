@@ -1,5 +1,5 @@
 module Resolvers
-    class Genre < GraphQL::Schema::Resolver
+    class SingleGenre < GraphQL::Schema::Resolver
       description "Single genre details"
 
       type ::Types::GenreType, null: false
@@ -7,6 +7,8 @@ module Resolvers
 
       def resolve(id:)
         Genres::Representer.new(Genre.where(id: id)).single.order(title: :asc)
-      end
+        rescue ActiveRecord::RecordNotFound => error
+          raise GraphQL::ExecutionError, error.message
+        end
     end
-  end
+end

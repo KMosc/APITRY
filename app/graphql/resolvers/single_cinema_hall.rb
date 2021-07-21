@@ -1,5 +1,5 @@
 module Resolvers
-    class GetCinemaHall < GraphQL::Schema::Resolver
+    class SingleCinemaHall < GraphQL::Schema::Resolver
       description "Single cinema hall details"
 
       type Types::CinameHallType, null: false

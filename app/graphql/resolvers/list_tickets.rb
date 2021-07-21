@@ -6,7 +6,9 @@ module Resolvers
       argument :email, String, required: true
 
       def resolve(email:)
-        tickets = Tickets::Representer.new(Repository::TicketRepository(Ticket.where(email: email)))
+        Ticket.find(:all, :conditions => { email => email })
+      rescue ActiveRecord::RecordNotFound => error
+        raise GraphQL::ExecutionError, error.message
       end
     end
   end
