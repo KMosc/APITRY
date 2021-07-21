@@ -1,5 +1,5 @@
 module Resolvers
-    class GetTicketDesk < GraphQL::Schema::Resolver
+    class SingleTicketDesk < GraphQL::Schema::Resolver
       description "Single Ticket Desk"
 
       type ::Types::TicketDeskType, null: false
@@ -9,6 +9,8 @@ module Resolvers
         TicketDesks::Representer.new(
             TicketDesk.where(id: id)
             ).single
-      end
+        rescue ActiveRecord::RecordNotFound => error
+          raise GraphQL::ExecutionError, error.message
+        end
     end
-  end
+end

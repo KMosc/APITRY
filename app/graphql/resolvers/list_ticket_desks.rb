@@ -10,4 +10,4 @@ module Resolvers
           ).single.order(name: :asc)
       end
     end
-  end
+end
