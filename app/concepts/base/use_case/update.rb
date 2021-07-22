@@ -2,8 +2,8 @@ module UseCase
     module Base 
         class Update < ::UseCase::Base::Base
         
-            def call(id, params)
-                repository.update(id, params)
+            def call(params)
+                repository.update(params)
             end
             
         end
