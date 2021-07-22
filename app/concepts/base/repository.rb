@@ -15,9 +15,14 @@ module Repository
             adapter.all
         end
 
-          def update_all(params)
+        def update_all(params)
             adapter.update_all(params)
-          end
+        end
+
+        def update(params)
+            obj = adapter.find(params[:id])
+            obj.update(params)
+        end
 
         def create(attrs)
             begin
