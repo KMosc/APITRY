@@ -9,7 +9,8 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
   }, skip: [:sessions, :password] 
   root :to => 'ticket_desks#index'
-
+  resources :ticket
+  
   mount Sidekiq::Web => "/sidekiq"
 
 end
