@@ -20,6 +20,7 @@ module Types
     field :list_payment_histories, resolver: ::Resolvers::ListPaymentHistories
     field :list_tickets, resolver: ::Resolvers::ListTickets
     field :ticket, resolver: ::Resolvers::SingleTicket
+    field :empty_seats, resolver: ::Resolvers::EmptySeats
 
 
     def test_field

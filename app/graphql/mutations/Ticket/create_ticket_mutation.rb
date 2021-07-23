@@ -12,7 +12,7 @@ module Mutations
               Repository::TicketRepository.new, 
               Repository::CinemaHallRepository.new
               )
-        UseCase::Decorator::Buy.new(wrapper, args)
+        use_case=UseCase::Decorator::Buy.new(wrapper, args).call
         {status: 200}
       end
     end
