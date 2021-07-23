@@ -8,6 +8,8 @@ module Resolvers
         Genres::Representer.new(
           Genre.all
           ).single.order(title: :asc)
+        rescue ActiveRecord::RecordNotFound => error
+          raise GraphQL::ExecutionError, error.message
+        end
       end
     end
-  end

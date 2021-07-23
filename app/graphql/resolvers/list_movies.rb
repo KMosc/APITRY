@@ -9,6 +9,8 @@ module Resolvers
         movies = Movie.where(
             cinema_hall_id: id
           ).order(title: :asc)
+        rescue ActiveRecord::RecordNotFound => error
+          raise GraphQL::ExecutionError, error.message
+        end
       end
     end
-  end

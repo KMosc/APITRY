@@ -6,6 +6,8 @@ module Resolvers
 
       def resolve
         CinemaHall.all.order(volume: :asc)
+      rescue ActiveRecord::RecordNotFound => error
+        raise GraphQL::ExecutionError, error.message
       end
     end
   end

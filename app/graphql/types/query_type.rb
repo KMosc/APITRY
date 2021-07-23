@@ -22,7 +22,6 @@ module Types
     field :ticket, resolver: ::Resolvers::SingleTicket
     field :empty_seats, resolver: ::Resolvers::EmptySeats
 
-
     def test_field
       "Hello World!"
     end
