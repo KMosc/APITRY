@@ -12,6 +12,14 @@ module Types
     field :update_cinema_hall, mutation: Mutations::UpdateCinemaHallMutation
     field :update_genre, mutation: Mutations::UpdateGenreMutation
     field :update_movie, mutation: Mutations::UpdateMovieMutation
+
+    # Create Types
+    field :delete_ticket_desk, mutation: Mutations::DeleteTicketDeskMutation
+    field :delete_cinema_hall, mutation: Mutations::DeleteCinemaHallMutation
+    field :delete_genre, mutation: Mutations::DeleteGenreMutation
+    field :delete_movie, mutation: Mutations::DeleteMovieMutation
+    field :delete_ticket, mutation: Mutations::DeleteTicketMutation
+
     def test_field
       "Hello World"
     end
